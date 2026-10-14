@@ -3,6 +3,7 @@ import {
   Suspense,
   useEffect,
   useRef,
+  useState,
   Component,
   type ErrorInfo,
   type ReactNode,
@@ -16,6 +17,7 @@ import {
 } from "@react-three/drei";
 import * as THREE from "three";
 import { Loader3D } from "./Loader3D";
+import { Hotspot } from "./Hotspot";
 import type { Product, ProductVariant } from "@/lib/types";
 
 class ModelErrorBoundary extends Component<
@@ -86,7 +88,9 @@ interface ProductViewerProps {
 }
 
 export function ProductViewer({ product, selectedVariant }: ProductViewerProps) {
+  const [isDragging, setIsDragging] = useState(false);
   useGLTF.preload(product.model.glb);
+
   return (
     <div className="relative aspect-square w-full overflow-hidden rounded-2xl bg-[var(--color-card)]">
       <Canvas
@@ -113,6 +117,9 @@ export function ProductViewer({ product, selectedVariant }: ProductViewerProps) 
               variantColor={selectedVariant.color}
             />
           </ModelErrorBoundary>
+          {product.hotspots.map((hotspot) => (
+            <Hotspot key={hotspot.id} hotspot={hotspot} visible={!isDragging} />
+          ))}
           <ContactShadows
             position={[0, -1, 0]}
             opacity={0.4}
@@ -121,7 +128,13 @@ export function ProductViewer({ product, selectedVariant }: ProductViewerProps) 
           />
           <Environment preset="studio" />
         </Suspense>
-        <OrbitControls enablePan={false} minDistance={1} maxDistance={6} />
+        <OrbitControls
+          enablePan={false}
+          minDistance={1}
+          maxDistance={6}
+          onStart={() => setIsDragging(true)}
+          onEnd={() => setIsDragging(false)}
+        />
       </Canvas>
       <Loader3D />
     </div>
