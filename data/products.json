@@ -1,0 +1,146 @@
+[
+  {
+    "id": "p1",
+    "slug": "wireless-headphones",
+    "name": "AX-900 Headphones",
+    "category": "electronics",
+    "price": 299,
+    "description": "Auriculares inalámbricos premium con cancelación de ruido activa, 40 horas de batería y audio espacial de alta fidelidad. Transductores de 40mm con imanes de neodimio para graves profundos y altos cristalinos.",
+    "shortDescription": "Cancelación de ruido activa · 40h batería · Audio espacial",
+    "featured": true,
+    "fallbackImage": "/products/headphones.webp",
+    "model": {
+      "glb": "/models/headphones.glb",
+      "scale": [1, 1, 1],
+      "position": [0, 0, 0],
+      "cameraPosition": [0, 0.5, 2.5]
+    },
+    "variants": [
+      { "id": "v1", "name": "Negro Medianoche", "color": "#1a1a1a" },
+      { "id": "v2", "name": "Blanco Perla", "color": "#f5f5f5" },
+      { "id": "v3", "name": "Rojo Carmesí", "color": "#b91c1c" }
+    ],
+    "hotspots": [
+      {
+        "id": "h1",
+        "position": [0.3, 0.2, 0.1],
+        "label": "Drivers 40mm",
+        "description": "Transductores de 40mm con imanes de neodimio. Graves profundos, altos cristalinos."
+      },
+      {
+        "id": "h2",
+        "position": [-0.1, 0.4, 0.2],
+        "label": "ANC Híbrido",
+        "description": "Micrófonos duales feed-forward y feed-back eliminan hasta 35dB de ruido ambiental."
+      }
+    ]
+  },
+  {
+    "id": "p2",
+    "slug": "lounge-chair",
+    "name": "Silla Lounge Moderna",
+    "category": "furniture",
+    "price": 849,
+    "description": "Sillón de diseño con estructura de madera maciza de roble y tapizado de tela Kvadrat. Ergonómico y elegante, perfecto para espacios contemporáneos.",
+    "shortDescription": "Roble macizo FSC · Tapizado Kvadrat · Diseño ergonómico",
+    "featured": false,
+    "fallbackImage": "/products/chair.webp",
+    "model": {
+      "glb": "/models/chair.glb",
+      "scale": [1, 1, 1],
+      "position": [0, -0.5, 0],
+      "cameraPosition": [2, 1.5, 3]
+    },
+    "variants": [
+      { "id": "v1", "name": "Natural", "color": "#d4a96a" },
+      { "id": "v2", "name": "Nogal", "color": "#5c3d1e" },
+      { "id": "v3", "name": "Negro", "color": "#1a1a1a" }
+    ],
+    "hotspots": [
+      {
+        "id": "h1",
+        "position": [0.5, 0.3, 0.2],
+        "label": "Roble FSC",
+        "description": "Estructura de roble macizo certificado FSC, acabado con aceite natural."
+      },
+      {
+        "id": "h2",
+        "position": [0, 0.6, 0.3],
+        "label": "Tapizado Kvadrat",
+        "description": "Tela Kvadrat Remix, 100% lana reciclada, resistente al desgaste."
+      }
+    ]
+  },
+  {
+    "id": "p3",
+    "slug": "leather-bag",
+    "name": "Bolso Cuero Premium",
+    "category": "accessories",
+    "price": 495,
+    "description": "Bolso de mano elaborado en cuero full-grain de curtido vegetal. Herrajes de latón dorado, interior forrado en algodón y asa ajustable incluida.",
+    "shortDescription": "Cuero full-grain · Herrajes latón · Hecho a mano",
+    "featured": false,
+    "fallbackImage": "/products/bag.webp",
+    "model": {
+      "glb": "/models/bag.glb",
+      "scale": [1.2, 1.2, 1.2],
+      "position": [0, 0, 0],
+      "cameraPosition": [0, 0.3, 2]
+    },
+    "variants": [
+      { "id": "v1", "name": "Camel", "color": "#c68642" },
+      { "id": "v2", "name": "Negro", "color": "#1a1a1a" },
+      { "id": "v3", "name": "Burdeos", "color": "#722f37" }
+    ],
+    "hotspots": [
+      {
+        "id": "h1",
+        "position": [0.2, 0.1, 0.3],
+        "label": "Full-Grain",
+        "description": "Cuero de primera capa, curtido al vegetal. Desarrolla pátina con el uso."
+      },
+      {
+        "id": "h2",
+        "position": [-0.3, 0.2, 0.1],
+        "label": "Cierre YKK",
+        "description": "Cremallera YKK de latón macizo, teflonada para máxima durabilidad."
+      }
+    ]
+  },
+  {
+    "id": "p4",
+    "slug": "sneaker-x",
+    "name": "Sneaker X Concept",
+    "category": "footwear",
+    "price": 189,
+    "description": "Zapatilla conceptual de edición limitada. Upper de malla técnica monofilamento transpirable, suela de goma vulcanizada Vibram y entresuela de espuma EVA.",
+    "shortDescription": "Edición limitada · Malla técnica · Suela Vibram",
+    "featured": false,
+    "fallbackImage": "/products/sneaker.webp",
+    "model": {
+      "glb": "/models/sneaker.glb",
+      "scale": [1, 1, 1],
+      "position": [0, -0.3, 0],
+      "cameraPosition": [1.5, 0.8, 2.5]
+    },
+    "variants": [
+      { "id": "v1", "name": "Blanco / Blanco", "color": "#f5f5f5" },
+      { "id": "v2", "name": "Negro / Negro", "color": "#1a1a1a" },
+      { "id": "v3", "name": "Azul Royal", "color": "#1d4ed8" }
+    ],
+    "hotspots": [
+      {
+        "id": "h1",
+        "position": [0.1, 0.2, 0.4],
+        "label": "Upper técnico",
+        "description": "Malla monofilamento de 200 micras, 40% más ligera que tejido estándar."
+      },
+      {
+        "id": "h2",
+        "position": [0.3, -0.1, 0.2],
+        "label": "Suela Vibram",
+        "description": "Compuesto Vibram Megagrip. Tracción excepcional en seco y mojado."
+      }
+    ]
+  }
+]
