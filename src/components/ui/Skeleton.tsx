@@ -1,0 +1,8 @@
+export function Skeleton({ className = "" }: { className?: string }) {
+  return (
+    <div
+      className={`animate-pulse rounded-md bg-[var(--color-border)] ${className}`}
+      aria-hidden="true"
+    />
+  );
+}
