@@ -37,4 +37,15 @@ Task 8: complete (commits ff55adc..2eb37de, tests: browser verified hotspot hide
 
 Task 9: complete (commits 2eb37de..91355ce, tests: browser verified shipping+payment forms, Luhn rejection of 4111111111111110)
 
-Task 10: in_progress
+Task 10: complete (commit af2b900, tests: npm test → 16/16 pass)
+
+Final review: self-review (no subagent tool)
+- frameloop="demand" on both Canvas instances ✓
+- dpr capped at 1.5 on both Canvas instances ✓
+- skipHydration: true + rehydrate() in useEffect ✓
+- ssr: false on both Three.js dynamic imports ✓
+- Luhn validation present in PaymentForm ✓
+- ModelErrorBoundary fallback sphere handles GLB 404 ✓
+- No critical or important findings. Deferred minors:
+  - Minor (deferred): placeholder GLBs render as grey sphere — real CC-BY models needed for production use
+  - Minor (deferred): no loading spinner on checkout page between steps
