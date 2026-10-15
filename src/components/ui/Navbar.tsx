@@ -1,4 +1,5 @@
 "use client";
+import "@/lib/react19-compat";
 import Link from "next/link";
 import { useCartStore } from "@/store/cart";
 import { ThemeToggle } from "./ThemeToggle";
