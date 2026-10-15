@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
   images: {
     formats: ["image/webp"],
     remotePatterns: [
-      { protocol: "https", hostname: "picsum.photos" },
+      { protocol: "https", hostname: "picsum.photos", pathname: "/seed/**" },
     ],
   },
   compress: true,
