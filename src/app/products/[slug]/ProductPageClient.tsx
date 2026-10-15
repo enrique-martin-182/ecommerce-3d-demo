@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
 import { useCartStore } from "@/store/cart";
 import { getProductPrice } from "@/lib/products";
 import { ProductViewerClient } from "@/components/three/ProductViewerClient";
@@ -7,12 +8,14 @@ import { CartDrawer } from "@/components/shop/CartDrawer";
 import type { Product } from "@/lib/types";
 import Link from "next/link";
 
+type ViewMode = "photo" | "3d";
+
 export function ProductPageClient({ product }: { product: Product }) {
   const [selectedVariantId, setSelectedVariantId] = useState(
     product.variants[0].id
   );
   const [added, setAdded] = useState(false);
-  const [show3D, setShow3D] = useState(false);
+  const [viewMode, setViewMode] = useState<ViewMode>("photo");
   const { addItem, toggleDrawer } = useCartStore();
 
   const selectedVariant = product.variants.find(
@@ -32,7 +35,9 @@ export function ProductPageClient({ product }: { product: Product }) {
       {/* Breadcrumb */}
       <div className="border-b-2 border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-2 sm:px-6">
         <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-[var(--color-muted)]">
-          <Link href="/" className="hover:text-[var(--color-accent)] transition-colors">TIENDA</Link>
+          <Link href="/" className="hover:text-[var(--color-accent)] transition-colors">
+            TIENDA
+          </Link>
           {" / "}
           <span className="capitalize">{product.category}</span>
           {" / "}
@@ -46,53 +51,68 @@ export function ProductPageClient({ product }: { product: Product }) {
         {/* ── LEFT: Visual ── */}
         <div className="border-b-2 border-[var(--color-border)] lg:border-b-0 lg:border-r-2">
 
-          {/* CSS color placeholder — main "image" */}
-          <div
-            className="relative aspect-square flex flex-col items-start justify-end p-8 border-b-2 border-[var(--color-border)]"
-            style={{ backgroundColor: selectedVariant.color }}
-            aria-label={`Placeholder de ${product.name} — ${selectedVariant.name}`}
-          >
-            {/* Product name big text */}
-            <span
-              className="select-none font-black uppercase leading-[0.85] tracking-tighter"
-              style={{
-                fontSize: "clamp(3rem, 10vw, 6rem)",
-                color: "white",
-                mixBlendMode: "difference",
-              }}
-              aria-hidden="true"
-            >
-              {product.name}
-            </span>
-
-            {/* Variant badge */}
-            <span
-              className="mt-3 font-mono text-xs font-bold uppercase"
-              style={{ color: "white", mixBlendMode: "difference" }}
-              aria-hidden="true"
-            >
-              {selectedVariant.name}
-            </span>
-
-            {/* 3D toggle button */}
+          {/* View mode toggle */}
+          <div className="flex border-b-2 border-[var(--color-border)]">
             <button
-              onClick={() => setShow3D((s) => !s)}
-              className="absolute right-4 top-4 border-2 border-white/50 bg-black/40 px-3 py-1.5 font-mono text-[10px] font-bold uppercase text-white backdrop-blur-sm transition-colors hover:bg-black/70"
-              aria-label={show3D ? "Ocultar visor 3D" : "Ver en 3D"}
+              onClick={() => setViewMode("photo")}
+              className={`flex-1 border-r-2 border-[var(--color-border)] py-2.5 font-mono text-[10px] font-bold uppercase tracking-wider transition-colors ${
+                viewMode === "photo"
+                  ? "bg-[var(--color-foreground)] text-[var(--color-background)]"
+                  : "bg-[var(--color-surface)] text-[var(--color-muted)] hover:bg-[var(--color-surface-raised)]"
+              }`}
             >
-              {show3D ? "← FOTO" : "3D →"}
+              ◻ FOTO
+            </button>
+            <button
+              onClick={() => setViewMode("3d")}
+              className={`flex-1 py-2.5 font-mono text-[10px] font-bold uppercase tracking-wider transition-colors ${
+                viewMode === "3d"
+                  ? "bg-[var(--color-foreground)] text-[var(--color-background)]"
+                  : "bg-[var(--color-surface)] text-[var(--color-muted)] hover:bg-[var(--color-surface-raised)]"
+              }`}
+            >
+              ◈ VISOR 3D
             </button>
           </div>
 
-          {/* 3D viewer panel — conditionally shown */}
-          {show3D && (
+          {/* Photo view */}
+          {viewMode === "photo" && (
+            <div className="relative aspect-square border-b-2 border-[var(--color-border)] overflow-hidden bg-[var(--color-surface)]">
+              <Image
+                src={`https://picsum.photos/seed/${product.slug}/900/900`}
+                alt={product.name}
+                fill
+                className="object-cover"
+                style={{ filter: "grayscale(1) contrast(1.05)" }}
+                priority
+                unoptimized
+              />
+              {/* Product name text overlay */}
+              <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/70 via-transparent to-transparent p-8">
+                <div>
+                  <span
+                    className="block font-black uppercase leading-[0.85] tracking-tighter text-white"
+                    style={{ fontSize: "clamp(2.5rem,7vw,5rem)" }}
+                  >
+                    {product.name}
+                  </span>
+                  <span className="mt-2 block font-mono text-xs font-bold uppercase text-white/70">
+                    {selectedVariant.name}
+                  </span>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* 3D view */}
+          {viewMode === "3d" && (
             <div className="aspect-square border-b-2 border-[var(--color-border)] bg-[var(--color-surface)]">
               <ProductViewerClient product={product} selectedVariant={selectedVariant} />
             </div>
           )}
 
-          {/* Variant swatches row */}
-          <div className="flex items-center gap-0 border-b-2 border-[var(--color-border)] bg-[var(--color-surface)] p-4">
+          {/* Variant swatches */}
+          <div className="flex items-center gap-0 border-b-2 border-[var(--color-border)] p-4">
             <span className="mr-4 font-mono text-[10px] font-bold uppercase text-[var(--color-muted)] whitespace-nowrap">
               COLOR
             </span>
@@ -108,8 +128,8 @@ export function ProductPageClient({ product }: { product: Product }) {
                   style={{ backgroundColor: variant.color }}
                   className={`h-9 w-9 border-2 transition-all ${
                     variant.id === selectedVariantId
-                      ? "border-[var(--color-border)] scale-110 z-10 relative"
-                      : "border-transparent hover:border-[var(--color-border)]"
+                      ? "border-[var(--color-border)] scale-110 z-10 relative shadow-[2px_2px_0_0_var(--color-border)]"
+                      : "border-[var(--color-border)]/30 hover:border-[var(--color-border)]"
                   }`}
                 />
               ))}
@@ -119,8 +139,8 @@ export function ProductPageClient({ product }: { product: Product }) {
             </div>
           </div>
 
-          {/* Technical info strip */}
-          <div className="grid grid-cols-2 divide-x-2 divide-[var(--color-border)] border-b-2 border-[var(--color-border)] lg:border-b-0">
+          {/* Stats strip */}
+          <div className="grid grid-cols-2 divide-x-2 divide-[var(--color-border)]">
             <div className="p-4">
               <p className="font-mono text-[10px] uppercase text-[var(--color-muted)]">Categoría</p>
               <p className="mt-1 font-black text-sm uppercase">{product.category}</p>
@@ -173,7 +193,7 @@ export function ProductPageClient({ product }: { product: Product }) {
             </p>
           </div>
 
-          {/* Hotspots / features */}
+          {/* Hotspots */}
           {product.hotspots.length > 0 && (
             <div className="flex-1 p-8">
               <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-[var(--color-muted)] mb-4">
@@ -200,7 +220,7 @@ export function ProductPageClient({ product }: { product: Product }) {
             </div>
           )}
 
-          {/* Back link */}
+          {/* Back */}
           <div className="border-t-2 border-[var(--color-border)] p-6">
             <Link
               href="/"

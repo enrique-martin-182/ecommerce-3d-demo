@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { useCartStore } from "@/store/cart";
 import type { Product } from "@/lib/types";
 
@@ -22,39 +23,43 @@ export function ProductCard({ product }: ProductCardProps) {
       href={`/products/${product.slug}`}
       className="group flex flex-col border-2 border-[var(--color-border)] bg-[var(--color-card)] transition-all duration-150 hover:[box-shadow:4px_4px_0_0_var(--color-border)] hover:-translate-x-[2px] hover:-translate-y-[2px]"
     >
-      {/* CSS Placeholder image */}
-      <div
-        className="relative aspect-square overflow-hidden border-b-2 border-[var(--color-border)] flex items-end p-4"
-        style={{ backgroundColor: defaultVariant.color }}
-        aria-label={`Placeholder de ${product.name}`}
-      >
-        {/* Product name as big text */}
-        <span
-          className="select-none font-black uppercase leading-none text-[clamp(2rem,5vw,3.5rem)] tracking-tighter"
-          style={{ color: "white", mixBlendMode: "difference" }}
-          aria-hidden="true"
-        >
-          {product.name.split(" ")[0]}
-        </span>
+      {/* Placeholder image */}
+      <div className="relative aspect-square overflow-hidden border-b-2 border-[var(--color-border)]">
+        <Image
+          src={`https://picsum.photos/seed/${product.slug}/600/600`}
+          alt={product.name}
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+          style={{ filter: "grayscale(1) contrast(1.05)" }}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+          unoptimized
+        />
 
-        {/* Variant swatches */}
+        {/* Product name overlay */}
+        <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/60 to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          <span className="font-black text-xl uppercase leading-tight text-white">
+            {product.name}
+          </span>
+        </div>
+
+        {/* 3D badge */}
+        <div className="absolute left-3 top-3 border-2 border-white/60 bg-black/50 px-2 py-0.5">
+          <span className="font-mono text-[9px] font-bold uppercase text-white">3D</span>
+        </div>
+
+        {/* Variant dots */}
         {product.variants.length > 1 && (
           <div className="absolute right-3 top-3 flex flex-col gap-1">
             {product.variants.slice(0, 4).map((v) => (
               <span
                 key={v.id}
                 style={{ background: v.color }}
-                className="h-4 w-4 border-2 border-white/50"
+                className="h-3 w-3 border-2 border-white/60"
                 title={v.name}
               />
             ))}
           </div>
         )}
-
-        {/* 3D badge */}
-        <div className="absolute left-3 top-3 border-2 border-white/50 bg-black/50 px-2 py-0.5">
-          <span className="font-mono text-[9px] font-bold uppercase text-white">3D</span>
-        </div>
       </div>
 
       {/* Meta */}

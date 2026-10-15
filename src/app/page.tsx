@@ -1,6 +1,7 @@
 import { getFeaturedProduct, getProducts } from "@/lib/products";
 import { ProductGrid } from "@/components/shop/ProductGrid";
 import { CartDrawer } from "@/components/shop/CartDrawer";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function HomePage() {
@@ -57,25 +58,30 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Right: CSS placeholder for featured product */}
-          <div
-            className="relative flex items-center justify-center overflow-hidden"
-            style={{ backgroundColor: featured?.variants[0]?.color ?? "#cccccc" }}
-            aria-label={`Imagen placeholder de ${featured?.name}`}
-          >
-            <span
-              className="select-none font-black uppercase leading-none text-[clamp(3rem,8vw,6rem)] tracking-tighter"
-              style={{ color: "white", mixBlendMode: "difference" }}
-              aria-hidden="true"
-            >
-              {featured?.name?.split(" ")[0] ?? "3D"}
-            </span>
-            <div className="absolute bottom-4 right-4 border-2 border-white/40 px-3 py-1">
-              <span className="font-mono text-[10px] font-bold uppercase text-white/70">
-                placeholder
-              </span>
+          {/* Right: picsum placeholder image */}
+          {featured && (
+            <div className="relative overflow-hidden bg-[var(--color-surface)]">
+              <Image
+                src={`https://picsum.photos/seed/${featured.slug}/900/900`}
+                alt={featured.name}
+                fill
+                className="object-cover"
+                style={{ filter: "grayscale(1) contrast(1.05)" }}
+                priority
+                unoptimized
+              />
+              {/* Overlay text */}
+              <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/60 to-transparent p-8">
+                <span
+                  className="select-none font-black uppercase leading-none tracking-tighter text-white"
+                  style={{ fontSize: "clamp(2rem,6vw,4rem)", mixBlendMode: "normal" }}
+                  aria-hidden="true"
+                >
+                  {featured.name.split(" ")[0]}
+                </span>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
 

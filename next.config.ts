@@ -13,6 +13,9 @@ const nextConfig: NextConfig = {
   },
   images: {
     formats: ["image/webp"],
+    remotePatterns: [
+      { protocol: "https", hostname: "picsum.photos" },
+    ],
   },
   compress: true,
   poweredByHeader: false,
