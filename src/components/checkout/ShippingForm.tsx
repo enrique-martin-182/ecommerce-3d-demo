@@ -20,29 +20,16 @@ interface ShippingFormProps {
 
 function FieldError({ message }: { message?: string }) {
   if (!message) return null;
-  return <p className="mt-1 text-xs text-red-500">{message}</p>;
-}
-
-function Field({
-  label,
-  error,
-  children,
-}: {
-  label: string;
-  error?: string;
-  children: React.ReactNode;
-}) {
   return (
-    <div>
-      <label className="mb-1 block text-sm font-medium">{label}</label>
-      {children}
-      <FieldError message={error} />
-    </div>
+    <p className="mt-1 font-mono text-[10px] font-bold uppercase text-[var(--color-error)]">
+      ✕ {message}
+    </p>
   );
 }
 
+const labelClass = "mb-1 block font-mono text-[10px] font-bold uppercase tracking-wider text-[var(--color-muted)]";
 const inputClass =
-  "w-full rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2.5 text-sm placeholder:text-[var(--color-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]";
+  "w-full border-2 border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2.5 font-mono text-sm placeholder:text-[var(--color-muted)] focus:outline-none focus:border-[var(--color-accent)] transition-colors";
 
 export function ShippingForm({ onSubmit }: ShippingFormProps) {
   const {
@@ -55,65 +42,55 @@ export function ShippingForm({ onSubmit }: ShippingFormProps) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      <div className="grid grid-cols-2 gap-4">
-        <Field label="Nombre" error={errors.firstName?.message}>
-          <input
-            {...register("firstName")}
-            className={inputClass}
-            placeholder="Juan"
-          />
-        </Field>
-        <Field label="Apellidos" error={errors.lastName?.message}>
-          <input
-            {...register("lastName")}
-            className={inputClass}
-            placeholder="García"
-          />
-        </Field>
+      <div className="grid grid-cols-2 gap-0">
+        <div className="border-r-2 border-[var(--color-border)] pr-4">
+          <label className={labelClass}>Nombre</label>
+          <input {...register("firstName")} className={inputClass} placeholder="Juan" />
+          <FieldError message={errors.firstName?.message} />
+        </div>
+        <div className="pl-4">
+          <label className={labelClass}>Apellidos</label>
+          <input {...register("lastName")} className={inputClass} placeholder="García" />
+          <FieldError message={errors.lastName?.message} />
+        </div>
       </div>
-      <Field label="Email" error={errors.email?.message}>
-        <input
-          {...register("email")}
-          type="email"
-          className={inputClass}
-          placeholder="juan@ejemplo.com"
-        />
-      </Field>
-      <Field label="Dirección" error={errors.address?.message}>
-        <input
-          {...register("address")}
-          className={inputClass}
-          placeholder="Calle Mayor 1, 2ºA"
-        />
-      </Field>
-      <div className="grid grid-cols-2 gap-4">
-        <Field label="Ciudad" error={errors.city?.message}>
-          <input
-            {...register("city")}
-            className={inputClass}
-            placeholder="Madrid"
-          />
-        </Field>
-        <Field label="Código postal" error={errors.postalCode?.message}>
-          <input
-            {...register("postalCode")}
-            className={inputClass}
-            placeholder="28001"
-          />
-        </Field>
+
+      <div>
+        <label className={labelClass}>Email</label>
+        <input {...register("email")} type="email" className={inputClass} placeholder="juan@ejemplo.com" />
+        <FieldError message={errors.email?.message} />
       </div>
-      <Field label="País" error={errors.country?.message}>
-        <input
-          {...register("country")}
-          className={inputClass}
-          placeholder="España"
-        />
-      </Field>
+
+      <div>
+        <label className={labelClass}>Dirección</label>
+        <input {...register("address")} className={inputClass} placeholder="Calle Mayor 1, 2ºA" />
+        <FieldError message={errors.address?.message} />
+      </div>
+
+      <div className="grid grid-cols-2 gap-0">
+        <div className="border-r-2 border-[var(--color-border)] pr-4">
+          <label className={labelClass}>Ciudad</label>
+          <input {...register("city")} className={inputClass} placeholder="Madrid" />
+          <FieldError message={errors.city?.message} />
+        </div>
+        <div className="pl-4">
+          <label className={labelClass}>Código postal</label>
+          <input {...register("postalCode")} className={inputClass} placeholder="28001" />
+          <FieldError message={errors.postalCode?.message} />
+        </div>
+      </div>
+
+      <div>
+        <label className={labelClass}>País</label>
+        <input {...register("country")} className={inputClass} placeholder="España" />
+        <FieldError message={errors.country?.message} />
+      </div>
+
       <button
         type="submit"
-        className="w-full rounded-xl bg-[var(--color-accent)] py-3 text-sm font-medium text-[var(--color-accent-fg)] transition-opacity hover:opacity-80"
+        className="w-full border-2 border-[var(--color-border)] bg-[var(--color-foreground)] py-3.5 font-black text-sm uppercase text-[var(--color-background)] transition-all hover:bg-[var(--color-accent)] hover:border-[var(--color-accent)]"
       >
-        Continuar al pago →
+        CONTINUAR AL PAGO →
       </button>
     </form>
   );

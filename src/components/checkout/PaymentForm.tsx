@@ -43,8 +43,18 @@ interface PaymentFormProps {
   onBack: () => void;
 }
 
+const labelClass = "mb-1 block font-mono text-[10px] font-bold uppercase tracking-wider text-[var(--color-muted)]";
 const inputClass =
-  "w-full rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2.5 text-sm placeholder:text-[var(--color-muted)] font-mono focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]";
+  "w-full border-2 border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2.5 font-mono text-sm placeholder:text-[var(--color-muted)] focus:outline-none focus:border-[var(--color-accent)] transition-colors";
+
+function FieldError({ message }: { message?: string }) {
+  if (!message) return null;
+  return (
+    <p className="mt-1 font-mono text-[10px] font-bold uppercase text-[var(--color-error)]">
+      ✕ {message}
+    </p>
+  );
+}
 
 export function PaymentForm({ onSubmit, onBack }: PaymentFormProps) {
   const {
@@ -72,22 +82,17 @@ export function PaymentForm({ onSubmit, onBack }: PaymentFormProps) {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div>
-        <label className="mb-1 block text-sm font-medium">
-          Titular de la tarjeta
-        </label>
+        <label className={labelClass}>Titular de la tarjeta</label>
         <input
           {...register("cardName")}
           className={inputClass}
           placeholder="JUAN GARCIA"
         />
-        {errors.cardName && (
-          <p className="mt-1 text-xs text-red-500">{errors.cardName.message}</p>
-        )}
+        <FieldError message={errors.cardName?.message} />
       </div>
+
       <div>
-        <label className="mb-1 block text-sm font-medium">
-          Número de tarjeta
-        </label>
+        <label className={labelClass}>Número de tarjeta</label>
         <input
           {...register("cardNumber")}
           onChange={formatCardNumber}
@@ -96,15 +101,12 @@ export function PaymentForm({ onSubmit, onBack }: PaymentFormProps) {
           maxLength={16}
           inputMode="numeric"
         />
-        {errors.cardNumber && (
-          <p className="mt-1 text-xs text-red-500">
-            {errors.cardNumber.message}
-          </p>
-        )}
+        <FieldError message={errors.cardNumber?.message} />
       </div>
-      <div className="grid grid-cols-2 gap-4">
-        <div>
-          <label className="mb-1 block text-sm font-medium">Caducidad</label>
+
+      <div className="grid grid-cols-2 gap-0">
+        <div className="border-r-2 border-[var(--color-border)] pr-4">
+          <label className={labelClass}>Caducidad</label>
           <input
             {...register("expiry")}
             onChange={formatExpiry}
@@ -113,12 +115,10 @@ export function PaymentForm({ onSubmit, onBack }: PaymentFormProps) {
             maxLength={5}
             inputMode="numeric"
           />
-          {errors.expiry && (
-            <p className="mt-1 text-xs text-red-500">{errors.expiry.message}</p>
-          )}
+          <FieldError message={errors.expiry?.message} />
         </div>
-        <div>
-          <label className="mb-1 block text-sm font-medium">CVV</label>
+        <div className="pl-4">
+          <label className={labelClass}>CVV</label>
           <input
             {...register("cvv")}
             className={inputClass}
@@ -127,29 +127,29 @@ export function PaymentForm({ onSubmit, onBack }: PaymentFormProps) {
             inputMode="numeric"
             type="password"
           />
-          {errors.cvv && (
-            <p className="mt-1 text-xs text-red-500">{errors.cvv.message}</p>
-          )}
+          <FieldError message={errors.cvv?.message} />
         </div>
       </div>
 
-      <p className="text-xs text-[var(--color-muted)]">
-        🔒 Demo — no se procesan pagos reales. Usa 4111111111111111 para probar.
-      </p>
+      <div className="border-2 border-[var(--color-border)] bg-[var(--color-surface)] p-3">
+        <p className="font-mono text-[10px] font-bold uppercase text-[var(--color-muted)]">
+          DEMO — sin pagos reales · Prueba con: 4111111111111111
+        </p>
+      </div>
 
-      <div className="flex gap-3">
+      <div className="flex gap-0">
         <button
           type="button"
           onClick={onBack}
-          className="flex-1 rounded-xl border border-[var(--color-border)] py-3 text-sm transition-colors hover:bg-[var(--color-card)]"
+          className="flex-1 border-2 border-[var(--color-border)] border-r-0 py-3.5 font-black text-xs uppercase transition-colors hover:bg-[var(--color-foreground)] hover:text-[var(--color-background)]"
         >
-          ← Volver
+          ← VOLVER
         </button>
         <button
           type="submit"
-          className="flex-1 rounded-xl bg-[var(--color-accent)] py-3 text-sm font-medium text-[var(--color-accent-fg)] transition-opacity hover:opacity-80"
+          className="flex-[2] border-2 border-[var(--color-border)] bg-[var(--color-foreground)] py-3.5 font-black text-xs uppercase text-[var(--color-background)] transition-all hover:bg-[var(--color-accent)] hover:border-[var(--color-accent)]"
         >
-          Confirmar pedido
+          CONFIRMAR PEDIDO →
         </button>
       </div>
     </form>

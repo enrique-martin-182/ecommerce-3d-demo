@@ -4,35 +4,32 @@ interface StepIndicatorProps {
 
 export function StepIndicator({ currentStep }: StepIndicatorProps) {
   const steps = [
-    { number: 1, label: "Envío" },
-    { number: 2, label: "Pago" },
+    { number: 1, label: "ENVÍO" },
+    { number: 2, label: "PAGO" },
   ];
 
   return (
-    <div className="flex items-center justify-center gap-4 mb-8">
+    <div className="flex items-center">
       {steps.map((step, i) => (
-        <div key={step.number} className="flex items-center gap-4">
-          <div className="flex items-center gap-2">
-            <div
-              className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold border-2 ${
+        <div key={step.number} className="flex items-center flex-1">
+          <div
+            className={`flex h-10 flex-1 items-center justify-center gap-3 border-2 border-[var(--color-border)] font-mono text-xs font-bold uppercase transition-colors ${
+              currentStep >= step.number
+                ? "bg-[var(--color-foreground)] text-[var(--color-background)]"
+                : "bg-[var(--color-surface)] text-[var(--color-muted)]"
+            } ${i > 0 ? "border-l-0" : ""}`}
+          >
+            <span
+              className={`flex h-5 w-5 items-center justify-center border font-black text-[10px] ${
                 currentStep >= step.number
-                  ? "border-[var(--color-accent)] bg-[var(--color-accent)] text-[var(--color-accent-fg)]"
-                  : "border-[var(--color-border)] text-[var(--color-muted)]"
+                  ? "border-[var(--color-background)]/40 text-[var(--color-background)]"
+                  : "border-[var(--color-muted)] text-[var(--color-muted)]"
               }`}
             >
               {step.number}
-            </div>
-            <span
-              className={`text-sm ${currentStep >= step.number ? "font-medium" : "text-[var(--color-muted)]"}`}
-            >
-              {step.label}
             </span>
+            {step.label}
           </div>
-          {i < steps.length - 1 && (
-            <div
-              className={`h-px w-16 ${currentStep > step.number ? "bg-[var(--color-accent)]" : "bg-[var(--color-border)]"}`}
-            />
-          )}
         </div>
       ))}
     </div>
