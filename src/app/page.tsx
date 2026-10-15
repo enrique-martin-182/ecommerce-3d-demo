@@ -21,22 +21,22 @@ export default function HomePage() {
 
         <div className="grid md:grid-cols-[1fr_1fr] min-h-[80vh]">
           {/* Left: text */}
-          <div className="flex flex-col justify-between border-r-2 border-[var(--color-border)] p-8 md:p-12">
-            <div>
+          <div className="flex flex-col border-r-2 border-[var(--color-border)] p-8 md:p-14 gap-8">
+            <div className="flex flex-col gap-4">
               <p className="font-mono text-xs uppercase tracking-widest text-[var(--color-muted)]">
                 Producto destacado / 01
               </p>
-              <h1 className="mt-4 font-black uppercase leading-[0.9] text-[clamp(3rem,10vw,7rem)] tracking-tight">
+              <h1 className="font-black uppercase leading-[0.9] text-[clamp(2.5rem,7vw,5.5rem)] tracking-tight max-w-lg">
                 {featured?.name ?? "STORE 3D"}
               </h1>
-              <p className="mt-6 max-w-sm font-mono text-sm text-[var(--color-muted-fg)]">
+              <p className="max-w-xs font-mono text-sm text-[var(--color-muted-fg)] leading-relaxed">
                 {featured?.shortDescription}
               </p>
             </div>
 
-            <div className="mt-12 flex flex-col gap-4">
-              <div className="flex items-baseline gap-4">
-                <span className="font-black text-5xl tabular-nums">
+            <div className="mt-auto flex flex-col gap-5">
+              <div className="flex items-baseline gap-3">
+                <span className="font-black text-4xl tabular-nums">
                   {featured?.price} €
                 </span>
                 <span className="font-mono text-xs text-[var(--color-muted)]">IVA incl.</span>
@@ -44,13 +44,13 @@ export default function HomePage() {
               <div className="flex gap-0">
                 <Link
                   href={`/products/${featured?.slug}`}
-                  className="border-2 border-[var(--color-border)] bg-[var(--color-foreground)] px-8 py-4 font-black text-sm uppercase text-[var(--color-background)] transition-all hover:bg-[var(--color-accent)] hover:border-[var(--color-accent)]"
+                  className="border-2 border-[var(--color-border)] bg-[var(--color-foreground)] px-6 py-3.5 font-black text-sm uppercase text-[var(--color-background)] transition-all hover:bg-[var(--color-accent)] hover:border-[var(--color-accent)]"
                 >
                   Explorar en 3D →
                 </Link>
                 <Link
                   href="/#productos"
-                  className="border-2 border-l-0 border-[var(--color-border)] px-8 py-4 font-black text-sm uppercase transition-all hover:bg-[var(--color-foreground)] hover:text-[var(--color-background)]"
+                  className="border-2 border-l-0 border-[var(--color-border)] px-6 py-3.5 font-black text-sm uppercase transition-all hover:bg-[var(--color-foreground)] hover:text-[var(--color-background)]"
                 >
                   Ver todo
                 </Link>
@@ -93,7 +93,7 @@ export default function HomePage() {
       </div>
 
       {/* ── PRODUCT SECTION ── */}
-      <section id="productos" className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
+      <section id="productos" className="mx-auto max-w-7xl px-6 py-14 sm:px-8 lg:px-12">
         <div className="mb-8 flex items-end justify-between border-b-2 border-[var(--color-border)] pb-4">
           <div className="flex items-baseline gap-4">
             <h2 className="font-black text-3xl uppercase tracking-tight">

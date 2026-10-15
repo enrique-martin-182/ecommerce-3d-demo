@@ -47,30 +47,32 @@ export function FilterBar({
   );
 
   return (
-    <div className="flex flex-col gap-3 border-2 border-[var(--color-border)] bg-[var(--color-surface)] p-4">
+    <div className="flex flex-col gap-4 border-2 border-[var(--color-border)] bg-[var(--color-surface)] p-5">
       {/* Category row */}
-      <div className="flex flex-wrap gap-0">
-        {CATEGORIES.map((cat, i) => (
-          <button
-            key={cat.value}
-            onClick={() => {
-              setActiveCategory(cat.value);
-              onCategoryChange(cat.value);
-            }}
-            className={`border-2 border-r-0 px-4 py-2 font-mono text-[11px] font-bold uppercase transition-all last:border-r-2 ${
-              activeCategory === cat.value
-                ? "bg-[var(--color-foreground)] text-[var(--color-background)] border-[var(--color-border)]"
-                : "border-[var(--color-border)] hover:bg-[var(--color-foreground)] hover:text-[var(--color-background)]"
-            }`}
-            style={{ marginLeft: i === 0 ? 0 : -2 }}
-          >
-            {cat.label}
-          </button>
-        ))}
+      <div className="overflow-x-auto">
+        <div className="flex min-w-max gap-0">
+          {CATEGORIES.map((cat, i) => (
+            <button
+              key={cat.value}
+              onClick={() => {
+                setActiveCategory(cat.value);
+                onCategoryChange(cat.value);
+              }}
+              className={`flex-shrink-0 border-2 border-r-0 px-5 py-2.5 font-mono text-[11px] font-bold uppercase transition-all last:border-r-2 ${
+                activeCategory === cat.value
+                  ? "bg-[var(--color-foreground)] text-[var(--color-background)] border-[var(--color-border)]"
+                  : "border-[var(--color-border)] hover:bg-[var(--color-foreground)] hover:text-[var(--color-background)]"
+              }`}
+              style={{ marginLeft: i === 0 ? 0 : -2 }}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Controls */}
-      <div className="flex flex-wrap items-center gap-0">
+      <div className="flex flex-wrap items-center gap-2">
         {/* Search */}
         <input
           type="search"
@@ -78,11 +80,11 @@ export function FilterBar({
           value={searchValue}
           onChange={handleSearch}
           aria-label="Buscar productos"
-          className="h-9 border-2 border-[var(--color-border)] bg-[var(--color-card)] px-3 font-mono text-xs uppercase placeholder:text-[var(--color-muted)] focus:outline-none focus:ring-0 focus:border-[var(--color-accent)]"
+          className="h-9 min-w-[140px] flex-1 border-2 border-[var(--color-border)] bg-[var(--color-card)] px-3 font-mono text-xs uppercase placeholder:text-[var(--color-muted)] focus:outline-none focus:ring-0 focus:border-[var(--color-accent)]"
         />
 
         {/* Price */}
-        <label className="flex h-9 items-center gap-2 border-2 border-l-0 border-[var(--color-border)] bg-[var(--color-card)] px-3 font-mono text-[11px] font-bold uppercase">
+        <label className="flex h-9 flex-shrink-0 items-center gap-2 border-2 border-[var(--color-border)] bg-[var(--color-card)] px-3 font-mono text-[11px] font-bold uppercase">
           <span className="whitespace-nowrap">MAX {maxPrice} €</span>
           <input
             type="range"
@@ -100,7 +102,7 @@ export function FilterBar({
         <select
           onChange={(e) => onSortChange(e.target.value as SortOption)}
           aria-label="Ordenar por"
-          className="h-9 border-2 border-l-0 border-[var(--color-border)] bg-[var(--color-card)] px-2 font-mono text-[11px] font-bold uppercase focus:outline-none focus:border-[var(--color-accent)] cursor-pointer"
+          className="h-9 flex-shrink-0 border-2 border-[var(--color-border)] bg-[var(--color-card)] px-3 font-mono text-[11px] font-bold uppercase focus:outline-none focus:border-[var(--color-accent)] cursor-pointer"
         >
           <option value="price-asc">PRECIO ↑</option>
           <option value="price-desc">PRECIO ↓</option>
