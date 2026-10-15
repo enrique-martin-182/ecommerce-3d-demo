@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCartStore } from "@/store/cart";
 import { StepIndicator } from "@/components/checkout/StepIndicator";
 import { ShippingForm } from "@/components/checkout/ShippingForm";
@@ -11,10 +11,12 @@ type Step = 1 | 2 | "success";
 
 export default function CheckoutPage() {
   const [step, setStep] = useState<Step>(1);
-  const [orderNumber] = useState(() =>
-    Math.floor(100000 + Math.random() * 900000)
-  );
+  const [orderNumber, setOrderNumber] = useState(0);
   const { items, total, clearCart } = useCartStore();
+
+  useEffect(() => {
+    setOrderNumber(Math.floor(100000 + Math.random() * 900000));
+  }, []);
 
   if (items.length === 0 && step !== "success") {
     return (
