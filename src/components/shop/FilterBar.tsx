@@ -18,11 +18,11 @@ interface FilterBarProps {
 }
 
 const CATEGORIES: { value: Category; label: string }[] = [
-  { value: "all", label: "Todo" },
-  { value: "electronics", label: "Electrónica" },
-  { value: "furniture", label: "Muebles" },
-  { value: "accessories", label: "Accesorios" },
-  { value: "footwear", label: "Calzado" },
+  { value: "all", label: "TODO" },
+  { value: "electronics", label: "ELECTRÓNICA" },
+  { value: "furniture", label: "MUEBLES" },
+  { value: "accessories", label: "ACCESORIOS" },
+  { value: "footwear", label: "CALZADO" },
 ];
 
 export function FilterBar({
@@ -47,58 +47,43 @@ export function FilterBar({
   );
 
   return (
-    <div className="flex flex-col gap-4">
-      {/* Category pills */}
-      <div className="flex flex-wrap gap-1.5">
-        {CATEGORIES.map((cat) => (
+    <div className="flex flex-col gap-3 border-2 border-[var(--color-border)] bg-[var(--color-surface)] p-4">
+      {/* Category row */}
+      <div className="flex flex-wrap gap-0">
+        {CATEGORIES.map((cat, i) => (
           <button
             key={cat.value}
             onClick={() => {
               setActiveCategory(cat.value);
               onCategoryChange(cat.value);
             }}
-            className={`rounded-lg border px-3.5 py-1.5 text-xs font-medium transition-all duration-150 ${
+            className={`border-2 border-r-0 px-4 py-2 font-mono text-[11px] font-bold uppercase transition-all last:border-r-2 ${
               activeCategory === cat.value
-                ? "border-[var(--color-foreground)] bg-[var(--color-foreground)] text-[var(--color-background)]"
-                : "border-[var(--color-border)] text-[var(--color-muted-fg)] hover:border-[var(--color-muted)] hover:text-[var(--color-foreground)]"
+                ? "bg-[var(--color-foreground)] text-[var(--color-background)] border-[var(--color-border)]"
+                : "border-[var(--color-border)] hover:bg-[var(--color-foreground)] hover:text-[var(--color-background)]"
             }`}
+            style={{ marginLeft: i === 0 ? 0 : -2 }}
           >
             {cat.label}
           </button>
         ))}
       </div>
 
-      {/* Controls row */}
-      <div className="flex flex-wrap items-center gap-2">
+      {/* Controls */}
+      <div className="flex flex-wrap items-center gap-0">
         {/* Search */}
-        <div className="relative">
-          <svg
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-muted)]"
-            width="13"
-            height="13"
-            viewBox="0 0 13 13"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            aria-hidden="true"
-          >
-            <circle cx="5.5" cy="5.5" r="4" />
-            <path d="M9 9l3 3" />
-          </svg>
-          <input
-            type="search"
-            placeholder="Buscar…"
-            value={searchValue}
-            onChange={handleSearch}
-            aria-label="Buscar productos"
-            className="h-8 w-44 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] pl-8 pr-3 text-xs placeholder:text-[var(--color-muted)] focus:outline-none focus:ring-1 focus:ring-[var(--color-muted)]"
-          />
-        </div>
+        <input
+          type="search"
+          placeholder="BUSCAR..."
+          value={searchValue}
+          onChange={handleSearch}
+          aria-label="Buscar productos"
+          className="h-9 border-2 border-[var(--color-border)] bg-[var(--color-card)] px-3 font-mono text-xs uppercase placeholder:text-[var(--color-muted)] focus:outline-none focus:ring-0 focus:border-[var(--color-accent)]"
+        />
 
         {/* Price */}
-        <label className="flex items-center gap-2 text-xs text-[var(--color-muted-fg)]">
-          <span className="w-20 text-right tabular-nums">Hasta {maxPrice} €</span>
+        <label className="flex h-9 items-center gap-2 border-2 border-l-0 border-[var(--color-border)] bg-[var(--color-card)] px-3 font-mono text-[11px] font-bold uppercase">
+          <span className="whitespace-nowrap">MAX {maxPrice} €</span>
           <input
             type="range"
             min={100}
@@ -106,7 +91,7 @@ export function FilterBar({
             step={50}
             defaultValue={1000}
             onChange={(e) => onPriceChange(Number(e.target.value))}
-            className="w-24 accent-[var(--color-foreground)] cursor-pointer"
+            className="w-20 accent-[var(--color-accent)] cursor-pointer"
             aria-label="Precio máximo"
           />
         </label>
@@ -115,11 +100,11 @@ export function FilterBar({
         <select
           onChange={(e) => onSortChange(e.target.value as SortOption)}
           aria-label="Ordenar por"
-          className="h-8 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-2.5 text-xs text-[var(--color-foreground)] focus:outline-none focus:ring-1 focus:ring-[var(--color-muted)] cursor-pointer"
+          className="h-9 border-2 border-l-0 border-[var(--color-border)] bg-[var(--color-card)] px-2 font-mono text-[11px] font-bold uppercase focus:outline-none focus:border-[var(--color-accent)] cursor-pointer"
         >
-          <option value="price-asc">Precio ↑</option>
-          <option value="price-desc">Precio ↓</option>
-          <option value="name-asc">Nombre A–Z</option>
+          <option value="price-asc">PRECIO ↑</option>
+          <option value="price-desc">PRECIO ↓</option>
+          <option value="name-asc">NOMBRE A–Z</option>
         </select>
       </div>
     </div>

@@ -1,7 +1,6 @@
 import { getFeaturedProduct, getProducts } from "@/lib/products";
 import { ProductGrid } from "@/components/shop/ProductGrid";
 import { CartDrawer } from "@/components/shop/CartDrawer";
-import { HeroSceneClient } from "@/components/three/HeroSceneClient";
 import Link from "next/link";
 
 export default function HomePage() {
@@ -10,92 +9,106 @@ export default function HomePage() {
 
   return (
     <main>
-      {/* Hero */}
-      <section className="relative flex min-h-[88vh] items-end overflow-hidden border-b border-[var(--color-border)]">
-        {/* Background gradient — visible when 3D fails */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(ellipse 80% 60% at 60% 40%, rgba(255,255,255,0.04) 0%, transparent 70%), linear-gradient(135deg, #080808 0%, #0f0f0f 100%)",
-          }}
-          aria-hidden="true"
-        />
-        {/* Grid texture */}
-        <div
-          className="absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage:
-              "linear-gradient(var(--color-foreground) 1px, transparent 1px), linear-gradient(90deg, var(--color-foreground) 1px, transparent 1px)",
-            backgroundSize: "64px 64px",
-          }}
-          aria-hidden="true"
-        />
+      {/* ── HERO ── */}
+      <section className="border-b-2 border-[var(--color-border)]">
+        {/* Top strip */}
+        <div className="border-b-2 border-[var(--color-border)] bg-[var(--color-accent)] px-6 py-2">
+          <p className="font-mono text-xs font-bold uppercase tracking-widest text-white">
+            ★ TIENDA DEMO — VISOR 3D INTERACTIVO ★
+          </p>
+        </div>
 
-        {featured && (
-          <div className="absolute inset-0">
-            <HeroSceneClient model={featured.model} />
+        <div className="grid md:grid-cols-[1fr_1fr] min-h-[80vh]">
+          {/* Left: text */}
+          <div className="flex flex-col justify-between border-r-2 border-[var(--color-border)] p-8 md:p-12">
+            <div>
+              <p className="font-mono text-xs uppercase tracking-widest text-[var(--color-muted)]">
+                Producto destacado / 01
+              </p>
+              <h1 className="mt-4 font-black uppercase leading-[0.9] text-[clamp(3rem,10vw,7rem)] tracking-tight">
+                {featured?.name ?? "STORE 3D"}
+              </h1>
+              <p className="mt-6 max-w-sm font-mono text-sm text-[var(--color-muted-fg)]">
+                {featured?.shortDescription}
+              </p>
+            </div>
+
+            <div className="mt-12 flex flex-col gap-4">
+              <div className="flex items-baseline gap-4">
+                <span className="font-black text-5xl tabular-nums">
+                  {featured?.price} €
+                </span>
+                <span className="font-mono text-xs text-[var(--color-muted)]">IVA incl.</span>
+              </div>
+              <div className="flex gap-0">
+                <Link
+                  href={`/products/${featured?.slug}`}
+                  className="border-2 border-[var(--color-border)] bg-[var(--color-foreground)] px-8 py-4 font-black text-sm uppercase text-[var(--color-background)] transition-all hover:bg-[var(--color-accent)] hover:border-[var(--color-accent)]"
+                >
+                  Explorar en 3D →
+                </Link>
+                <Link
+                  href="/#productos"
+                  className="border-2 border-l-0 border-[var(--color-border)] px-8 py-4 font-black text-sm uppercase transition-all hover:bg-[var(--color-foreground)] hover:text-[var(--color-background)]"
+                >
+                  Ver todo
+                </Link>
+              </div>
+            </div>
           </div>
-        )}
 
-        {/* Content */}
-        <div className="relative z-10 w-full px-6 pb-14 pt-32 md:px-16 md:pb-20">
-          <div className="max-w-xl">
-            <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-1 text-xs font-medium text-[var(--color-muted-fg)]">
-              <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-success)]" />
-              Producto destacado
-            </p>
-            <h1 className="text-5xl font-semibold leading-[1.05] tracking-tight md:text-7xl">
-              {featured?.name}
-            </h1>
-            <p className="mt-4 text-base text-[var(--color-muted-fg)] md:text-lg">
-              {featured?.shortDescription}
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Link
-                href={`/products/${featured?.slug}`}
-                className="inline-flex h-11 items-center gap-2 rounded-lg bg-[var(--color-accent)] px-6 text-sm font-medium text-[var(--color-accent-fg)] transition-opacity hover:opacity-85"
-              >
-                Explorar en 3D
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M2 7h10M8 3l4 4-4 4" />
-                </svg>
-              </Link>
-              <span className="text-sm text-[var(--color-muted)]">
-                {featured?.price} €
+          {/* Right: CSS placeholder for featured product */}
+          <div
+            className="relative flex items-center justify-center overflow-hidden"
+            style={{ backgroundColor: featured?.variants[0]?.color ?? "#cccccc" }}
+            aria-label={`Imagen placeholder de ${featured?.name}`}
+          >
+            <span
+              className="select-none font-black uppercase leading-none text-[clamp(3rem,8vw,6rem)] tracking-tighter"
+              style={{ color: "white", mixBlendMode: "difference" }}
+              aria-hidden="true"
+            >
+              {featured?.name?.split(" ")[0] ?? "3D"}
+            </span>
+            <div className="absolute bottom-4 right-4 border-2 border-white/40 px-3 py-1">
+              <span className="font-mono text-[10px] font-bold uppercase text-white/70">
+                placeholder
               </span>
             </div>
           </div>
         </div>
-
-        {/* Scroll indicator */}
-        <div className="absolute bottom-6 right-6 z-10 hidden md:flex flex-col items-center gap-1.5">
-          <span className="text-[10px] uppercase tracking-widest text-[var(--color-muted)] [writing-mode:vertical-rl]">
-            scroll
-          </span>
-          <div className="h-8 w-px bg-[var(--color-border)]" />
-        </div>
       </section>
 
-      {/* Product section */}
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-        <div className="mb-10 flex items-end justify-between">
-          <div>
-            <p className="text-xs font-medium uppercase tracking-widest text-[var(--color-muted)]">
-              Colección
-            </p>
-            <h2 className="mt-1 text-3xl font-semibold tracking-tight">
-              Todos los productos
+      {/* ── TICKER ── */}
+      <div className="overflow-hidden border-b-2 border-[var(--color-border)] bg-[var(--color-foreground)] py-2.5">
+        <p className="animate-[ticker_15s_linear_infinite] whitespace-nowrap font-mono text-xs font-bold uppercase text-[var(--color-background)]">
+          &nbsp;&nbsp;ELECTRÓNICA&nbsp;&nbsp;//&nbsp;&nbsp;MUEBLES&nbsp;&nbsp;//&nbsp;&nbsp;ACCESORIOS&nbsp;&nbsp;//&nbsp;&nbsp;CALZADO&nbsp;&nbsp;//&nbsp;&nbsp;VISOR 3D INTERACTIVO&nbsp;&nbsp;//&nbsp;&nbsp;ROTA · CAMBIA COLOR · DESCUBRE&nbsp;&nbsp;//&nbsp;&nbsp;ELECTRÓNICA&nbsp;&nbsp;//&nbsp;&nbsp;MUEBLES&nbsp;&nbsp;//&nbsp;&nbsp;ACCESORIOS&nbsp;&nbsp;//&nbsp;&nbsp;CALZADO&nbsp;&nbsp;//&nbsp;&nbsp;VISOR 3D&nbsp;&nbsp;//&nbsp;&nbsp;
+        </p>
+      </div>
+
+      {/* ── PRODUCT SECTION ── */}
+      <section id="productos" className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
+        <div className="mb-8 flex items-end justify-between border-b-2 border-[var(--color-border)] pb-4">
+          <div className="flex items-baseline gap-4">
+            <h2 className="font-black text-3xl uppercase tracking-tight">
+              Productos
             </h2>
+            <span className="font-mono text-xs text-[var(--color-muted)]">
+              [{products.length}]
+            </span>
           </div>
-          <p className="text-sm text-[var(--color-muted-fg)]">
-            {products.length} artículos
-          </p>
         </div>
         <ProductGrid products={products} />
       </section>
 
       <CartDrawer />
+
+      <style>{`
+        @keyframes ticker {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
+        }
+      `}</style>
     </main>
   );
 }

@@ -13,92 +13,49 @@ export function Navbar() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-background)]/80 backdrop-blur-md">
-      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6">
+    <header className="sticky top-0 z-50 border-b-2 border-[var(--color-border)] bg-[var(--color-background)]">
+      <div className="mx-auto flex h-12 max-w-7xl items-center justify-between px-4 sm:px-6">
         <Link
           href="/"
-          className="flex items-center gap-2 text-sm font-semibold tracking-tight transition-opacity hover:opacity-70"
+          className="font-black text-sm uppercase tracking-tight transition-colors hover:text-[var(--color-accent)]"
         >
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
-            aria-hidden="true"
-          >
-            <rect
-              x="2"
-              y="2"
-              width="7"
-              height="7"
-              rx="1.5"
-              fill="currentColor"
-              opacity=".9"
-            />
-            <rect
-              x="11"
-              y="2"
-              width="7"
-              height="7"
-              rx="1.5"
-              fill="currentColor"
-              opacity=".5"
-            />
-            <rect
-              x="2"
-              y="11"
-              width="7"
-              height="7"
-              rx="1.5"
-              fill="currentColor"
-              opacity=".5"
-            />
-            <rect
-              x="11"
-              y="11"
-              width="7"
-              height="7"
-              rx="1.5"
-              fill="currentColor"
-              opacity=".9"
-            />
-          </svg>
-          <span>Store 3D</span>
+          STORE 3D
         </Link>
 
-        <nav className="hidden md:flex items-center gap-1 text-sm">
+        <nav className="hidden md:flex items-center gap-0 text-xs font-bold uppercase">
           <Link
             href="/"
-            className="rounded-md px-3 py-1.5 text-[var(--color-muted-fg)] transition-colors hover:bg-[var(--color-surface)] hover:text-[var(--color-foreground)]"
+            className="border-2 border-transparent px-4 py-2 transition-colors hover:border-[var(--color-border)] hover:bg-[var(--color-foreground)] hover:text-[var(--color-background)]"
           >
             Tienda
           </Link>
         </nav>
 
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-0">
           <ThemeToggle />
           <button
             onClick={toggleDrawer}
             aria-label={`Carrito — ${count()} artículos`}
-            className="relative flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:bg-[var(--color-surface)]"
+            className="relative flex h-10 items-center gap-2 border-l-2 border-[var(--color-border)] px-4 text-xs font-bold uppercase transition-colors hover:bg-[var(--color-foreground)] hover:text-[var(--color-background)]"
           >
             <svg
-              width="18"
-              height="18"
-              viewBox="0 0 18 18"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
               fill="none"
               stroke="currentColor"
-              strokeWidth="1.5"
+              strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
               aria-hidden="true"
             >
-              <path d="M1.5 1.5h2l2 9h8l2-7H5.5" />
-              <circle cx="7.5" cy="14.5" r="1" fill="currentColor" stroke="none" />
-              <circle cx="13.5" cy="14.5" r="1" fill="currentColor" stroke="none" />
+              <path d="M1 1h2.5l2 9h7l2-7H4.5" />
+              <circle cx="6.5" cy="13.5" r="1.5" fill="currentColor" stroke="none" />
+              <circle cx="12.5" cy="13.5" r="1.5" fill="currentColor" stroke="none" />
             </svg>
+            Carrito
             {count() > 0 && (
-              <span className="absolute -right-0.5 -top-0.5 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-[var(--color-foreground)] text-[10px] font-semibold text-[var(--color-background)] leading-none">
+              <span className="flex h-5 min-w-[20px] items-center justify-center bg-[var(--color-accent)] px-1 text-[10px] font-black text-white tabular-nums">
                 {count() > 9 ? "9+" : count()}
               </span>
             )}

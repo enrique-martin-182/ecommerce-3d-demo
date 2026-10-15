@@ -22,20 +22,15 @@ export default function CheckoutPage() {
   if (items.length === 0 && step !== "success") {
     return (
       <main className="mx-auto max-w-lg px-4 py-24 text-center">
-        <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-card)]">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--color-muted-fg)]" aria-hidden="true">
-            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
-            <line x1="3" y1="6" x2="21" y2="6" />
-            <path d="M16 10a4 4 0 01-8 0" />
-          </svg>
-        </div>
-        <h1 className="text-xl font-semibold">Carrito vacío</h1>
-        <p className="mt-2 text-sm text-[var(--color-muted-fg)]">Añade productos antes de continuar.</p>
+        <p className="font-black text-5xl uppercase text-[var(--color-muted)]">VACÍO</p>
+        <p className="mt-4 font-mono text-sm text-[var(--color-muted-fg)]">
+          Tu carrito no tiene artículos.
+        </p>
         <Link
           href="/"
-          className="mt-6 inline-flex h-10 items-center gap-2 rounded-lg border border-[var(--color-border)] px-5 text-sm font-medium transition-colors hover:bg-[var(--color-surface)]"
+          className="mt-8 inline-flex h-11 items-center gap-2 border-2 border-[var(--color-border)] px-6 font-black text-sm uppercase transition-colors hover:bg-[var(--color-foreground)] hover:text-[var(--color-background)]"
         >
-          Volver a la tienda
+          ← Volver a la tienda
         </Link>
       </main>
     );
@@ -44,24 +39,22 @@ export default function CheckoutPage() {
   if (step === "success") {
     return (
       <main className="mx-auto max-w-lg px-4 py-24 text-center">
-        <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-card)]">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--color-success)]" aria-hidden="true">
-            <polyline points="20 6 9 17 4 12" />
-          </svg>
+        <div className="border-2 border-[var(--color-border)] bg-[var(--color-surface)] p-12">
+          <p className="font-black text-6xl text-[var(--color-success)]">✓</p>
+          <h1 className="mt-4 font-black text-3xl uppercase">¡PEDIDO OK!</h1>
+          <p className="mt-2 font-mono text-sm text-[var(--color-muted-fg)]">
+            Pedido #{orderNumber}
+          </p>
+          <p className="mt-4 font-mono text-xs text-[var(--color-muted)]">
+            DEMO — no se procesó ningún pago real.
+          </p>
+          <Link
+            href="/"
+            className="mt-8 inline-flex h-11 items-center gap-2 border-2 border-[var(--color-border)] bg-[var(--color-foreground)] px-6 font-black text-sm uppercase text-[var(--color-background)] transition-colors hover:bg-[var(--color-accent)] hover:border-[var(--color-accent)]"
+          >
+            ← Volver a la tienda
+          </Link>
         </div>
-        <h1 className="text-2xl font-semibold">¡Pedido confirmado!</h1>
-        <p className="mt-2 text-sm text-[var(--color-muted-fg)]">
-          Pedido #{orderNumber}
-        </p>
-        <p className="mt-4 text-xs text-[var(--color-muted)]">
-          Demo — no se ha procesado ningún pago.
-        </p>
-        <Link
-          href="/"
-          className="mt-8 inline-flex h-10 items-center gap-2 rounded-lg bg-[var(--color-accent)] px-6 text-sm font-medium text-[var(--color-accent-fg)] transition-opacity hover:opacity-85"
-        >
-          Volver a la tienda
-        </Link>
       </main>
     );
   }
@@ -76,25 +69,25 @@ export default function CheckoutPage() {
   }
 
   return (
-    <main className="mx-auto max-w-2xl px-4 py-12">
-      {/* Header */}
-      <div className="mb-8 flex items-center justify-between">
-        <h1 className="text-xl font-semibold">Checkout</h1>
+    <main className="mx-auto max-w-3xl px-4 py-10">
+      {/* Header bar */}
+      <div className="mb-6 flex items-center justify-between border-b-2 border-[var(--color-border)] pb-4">
+        <h1 className="font-black text-2xl uppercase tracking-tight">CHECKOUT</h1>
         <Link
           href="/"
-          className="text-xs text-[var(--color-muted-fg)] transition-colors hover:text-[var(--color-foreground)]"
+          className="font-mono text-xs font-bold uppercase text-[var(--color-muted)] transition-colors hover:text-[var(--color-accent)]"
         >
           ← Seguir comprando
         </Link>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-[1fr_280px]">
+      <div className="grid gap-4 md:grid-cols-[1fr_260px]">
         {/* Left: steps */}
         <div className="space-y-4">
-          <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-1">
+          <div className="border-2 border-[var(--color-border)] bg-[var(--color-surface)] p-1">
             <StepIndicator currentStep={step as 1 | 2} />
           </div>
-          <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-6">
+          <div className="border-2 border-[var(--color-border)] bg-[var(--color-card)] p-6">
             {step === 1 && <ShippingForm onSubmit={handleShipping} />}
             {step === 2 && (
               <PaymentForm onSubmit={handlePayment} onBack={() => setStep(1)} />
@@ -103,32 +96,33 @@ export default function CheckoutPage() {
         </div>
 
         {/* Right: order summary */}
-        <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-5 h-fit">
-          <p className="mb-4 text-xs font-medium uppercase tracking-wider text-[var(--color-muted)]">
-            Resumen
+        <div className="border-2 border-[var(--color-border)] bg-[var(--color-card)] p-5 h-fit">
+          <p className="mb-4 border-b-2 border-[var(--color-border)] pb-2 font-mono text-[10px] font-bold uppercase tracking-widest text-[var(--color-muted)]">
+            RESUMEN DEL PEDIDO
           </p>
-          <div className="space-y-2 border-b border-[var(--color-border)] pb-4">
+          <div className="space-y-2 border-b-2 border-[var(--color-border)] pb-4">
             {items.map((item) => {
               const p = getProduct(item.productId);
               const unitPrice = p ? getProductPrice(p, item.variantId) : 0;
               return (
-                <div key={`${item.productId}-${item.variantId}`} className="flex items-center justify-between gap-2 text-xs">
-                  <span className="text-[var(--color-muted-fg)] line-clamp-1 flex-1">
-                    {p?.name ?? item.productId} × {item.quantity}
+                <div key={`${item.productId}-${item.variantId}`} className="flex items-start justify-between gap-2">
+                  <span className="font-mono text-xs text-[var(--color-muted-fg)] line-clamp-2 flex-1">
+                    {p?.name ?? item.productId}
+                    <span className="text-[var(--color-muted)]"> ×{item.quantity}</span>
                   </span>
-                  <span className="tabular-nums font-medium">
+                  <span className="font-black text-sm tabular-nums">
                     {(unitPrice * item.quantity).toFixed(0)} €
                   </span>
                 </div>
               );
             })}
           </div>
-          <div className="mt-4 flex items-center justify-between">
-            <span className="text-sm text-[var(--color-muted-fg)]">Total</span>
-            <span className="text-base font-semibold tabular-nums">{total().toFixed(0)} €</span>
+          <div className="mt-4 flex items-baseline justify-between">
+            <span className="font-mono text-xs font-bold uppercase text-[var(--color-muted)]">TOTAL</span>
+            <span className="font-black text-2xl tabular-nums">{total().toFixed(0)} €</span>
           </div>
-          <p className="mt-3 text-[11px] text-center text-[var(--color-muted)]">
-            Demo — pago simulado
+          <p className="mt-3 font-mono text-[10px] text-center text-[var(--color-muted)] uppercase">
+            DEMO — pago simulado
           </p>
         </div>
       </div>
