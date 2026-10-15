@@ -79,7 +79,7 @@ export function ProductPageClient({ product }: { product: Product }) {
           {viewMode === "photo" && (
             <div className="relative aspect-square border-b-2 border-[var(--color-border)] overflow-hidden bg-[var(--color-surface)]">
               <Image
-                src={`https://picsum.photos/seed/${product.slug}/900/900`}
+                src={product.fallbackImage}
                 alt={product.name}
                 fill
                 className="object-cover"

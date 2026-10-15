@@ -62,7 +62,7 @@ export default function HomePage() {
           {featured && (
             <div className="relative overflow-hidden bg-[var(--color-surface)]">
               <Image
-                src={`https://picsum.photos/seed/${featured.slug}/900/900`}
+                src={featured.fallbackImage}
                 alt={featured.name}
                 fill
                 className="object-cover"

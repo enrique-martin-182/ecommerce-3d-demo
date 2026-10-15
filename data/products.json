@@ -8,7 +8,7 @@
     "description": "Auriculares inalámbricos premium con cancelación de ruido activa, 40 horas de batería y audio espacial de alta fidelidad. Transductores de 40mm con imanes de neodimio para graves profundos y altos cristalinos.",
     "shortDescription": "Cancelación de ruido activa · 40h batería · Audio espacial",
     "featured": true,
-    "fallbackImage": "/products/headphones.webp",
+    "fallbackImage": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=900&h=900&fit=crop&auto=format",
     "model": {
       "glb": "/models/headphones.glb",
       "scale": [1, 1, 1],
@@ -44,7 +44,7 @@
     "description": "Sillón de diseño con estructura de madera maciza de roble y tapizado de tela Kvadrat. Ergonómico y elegante, perfecto para espacios contemporáneos.",
     "shortDescription": "Roble macizo FSC · Tapizado Kvadrat · Diseño ergonómico",
     "featured": false,
-    "fallbackImage": "/products/chair.webp",
+    "fallbackImage": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=900&h=900&fit=crop&auto=format",
     "model": {
       "glb": "/models/chair.glb",
       "scale": [1, 1, 1],
@@ -80,7 +80,7 @@
     "description": "Bolso de mano elaborado en cuero full-grain de curtido vegetal. Herrajes de latón dorado, interior forrado en algodón y asa ajustable incluida.",
     "shortDescription": "Cuero full-grain · Herrajes latón · Hecho a mano",
     "featured": false,
-    "fallbackImage": "/products/bag.webp",
+    "fallbackImage": "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=900&h=900&fit=crop&auto=format",
     "model": {
       "glb": "/models/bag.glb",
       "scale": [1.2, 1.2, 1.2],
@@ -116,7 +116,7 @@
     "description": "Zapatilla conceptual de edición limitada. Upper de malla técnica monofilamento transpirable, suela de goma vulcanizada Vibram y entresuela de espuma EVA.",
     "shortDescription": "Edición limitada · Malla técnica · Suela Vibram",
     "featured": false,
-    "fallbackImage": "/products/sneaker.webp",
+    "fallbackImage": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=900&h=900&fit=crop&auto=format",
     "model": {
       "glb": "/models/sneaker.glb",
       "scale": [1, 1, 1],

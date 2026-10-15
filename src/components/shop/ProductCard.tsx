@@ -26,7 +26,7 @@ export function ProductCard({ product }: ProductCardProps) {
       {/* Placeholder image */}
       <div className="relative aspect-square overflow-hidden border-b-2 border-[var(--color-border)]">
         <Image
-          src={`https://picsum.photos/seed/${product.slug}/600/600`}
+          src={product.fallbackImage}
           alt={product.name}
           fill
           className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
