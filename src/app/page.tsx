@@ -11,46 +11,52 @@ export default function HomePage() {
   return (
     <main>
       {/* ── HERO ── */}
-      <section className="border-b-2 border-[var(--color-border)]">
-        {/* Top strip */}
-        <div className="border-b-2 border-[var(--color-border)] bg-[var(--color-accent)] px-6 py-2">
-          <p className="font-mono text-xs font-bold uppercase tracking-widest text-white">
-            ★ TIENDA DEMO — VISOR 3D INTERACTIVO ★
+      <section className="border-b border-[var(--color-iron-veil)]">
+        {/* Announcement bar */}
+        <div className="border-b border-[var(--color-moss-border)] bg-[var(--color-deep-canopy)] px-6 py-2.5">
+          <p className="font-mono text-xs tracking-widest text-[var(--color-mint-signal)] uppercase text-center">
+            ✦ TIENDA DEMO — VISOR 3D INTERACTIVO ✦
           </p>
         </div>
 
-        <div className="grid md:grid-cols-[1fr_1fr] min-h-[80vh]">
+        <div className="grid md:grid-cols-[1fr_1fr] min-h-[85vh]">
           {/* Left: text */}
-          <div className="flex flex-col border-r-2 border-[var(--color-border)] p-8 md:p-14 gap-8">
-            <div className="flex flex-col gap-4">
-              <p className="font-mono text-xs uppercase tracking-widest text-[var(--color-muted)]">
-                Producto destacado / 01
+          <div className="flex flex-col border-r border-[var(--color-iron-veil)] px-10 py-16 md:px-14 gap-10">
+            <div className="flex flex-col gap-5">
+              <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--color-ash-label)]">
+                Producto destacado · 01
               </p>
-              <h1 className="font-black uppercase leading-[0.9] text-[clamp(2.5rem,7vw,5.5rem)] tracking-tight max-w-lg">
+              <h1
+                className="font-light uppercase leading-[0.9] tracking-[0.02em] text-white"
+                style={{ fontSize: "clamp(3rem,7vw,6rem)" }}
+              >
                 {featured?.name ?? "STORE 3D"}
               </h1>
-              <p className="max-w-xs font-mono text-sm text-[var(--color-muted-fg)] leading-relaxed">
+              <p className="max-w-sm text-sm leading-relaxed text-[var(--color-tide-pool)]">
                 {featured?.shortDescription}
               </p>
             </div>
 
-            <div className="mt-auto flex flex-col gap-5">
+            <div className="mt-auto flex flex-col gap-6">
               <div className="flex items-baseline gap-3">
-                <span className="font-black text-4xl tabular-nums">
+                <span
+                  className="font-light tabular-nums text-[var(--color-mint-signal)]"
+                  style={{ fontSize: "clamp(2rem,4vw,3rem)" }}
+                >
                   {featured?.price} €
                 </span>
-                <span className="font-mono text-xs text-[var(--color-muted)]">IVA incl.</span>
+                <span className="font-mono text-xs text-[var(--color-ash-label)]">IVA incl.</span>
               </div>
-              <div className="flex gap-0">
+              <div className="flex flex-wrap gap-3">
                 <Link
                   href={`/products/${featured?.slug}`}
-                  className="border-2 border-[var(--color-border)] bg-[var(--color-foreground)] px-6 py-3.5 font-black text-sm uppercase text-[var(--color-background)] transition-all hover:bg-[var(--color-accent)] hover:border-[var(--color-accent)]"
+                  className="rounded-full bg-white px-7 py-3 text-sm font-medium uppercase tracking-widest text-black transition-all hover:bg-[var(--color-ghost-white)]"
                 >
-                  Explorar en 3D →
+                  Explorar en 3D
                 </Link>
                 <Link
                   href="/#productos"
-                  className="border-2 border-l-0 border-[var(--color-border)] px-6 py-3.5 font-black text-sm uppercase transition-all hover:bg-[var(--color-foreground)] hover:text-[var(--color-background)]"
+                  className="rounded-full border border-white/30 px-7 py-3 text-sm font-medium uppercase tracking-widest text-white transition-all hover:border-white/60 hover:bg-white/5"
                 >
                   Ver todo
                 </Link>
@@ -58,26 +64,30 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Right: picsum placeholder image */}
+          {/* Right: product image */}
           {featured && (
-            <div className="relative overflow-hidden bg-[var(--color-surface)]">
+            <div className="relative overflow-hidden bg-[var(--color-forest-floor)]">
               <Image
                 src={featured.fallbackImage}
                 alt={featured.name}
                 fill
-                className="object-cover"
-                style={{ filter: "grayscale(1) contrast(1.05)" }}
+                className="object-cover transition-transform duration-700 hover:scale-[1.03]"
                 priority
                 unoptimized
               />
-              {/* Overlay text */}
-              <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/60 to-transparent p-8">
+              {/* Bottom gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-abyssal-ink)]/70 via-transparent to-transparent" />
+              {/* Product name */}
+              <div className="absolute bottom-8 left-8">
                 <span
-                  className="select-none font-black uppercase leading-none tracking-tighter text-white"
-                  style={{ fontSize: "clamp(2rem,6vw,4rem)", mixBlendMode: "normal" }}
+                  className="block font-light uppercase leading-none tracking-[0.04em] text-white"
+                  style={{ fontSize: "clamp(2rem,5vw,3.5rem)" }}
                   aria-hidden="true"
                 >
                   {featured.name.split(" ")[0]}
+                </span>
+                <span className="mt-1 block font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--color-mint-signal)]">
+                  3D · Interactivo
                 </span>
               </div>
             </div>
@@ -86,20 +96,23 @@ export default function HomePage() {
       </section>
 
       {/* ── TICKER ── */}
-      <div className="overflow-hidden border-b-2 border-[var(--color-border)] bg-[var(--color-foreground)] py-2.5">
-        <p className="animate-[ticker_15s_linear_infinite] whitespace-nowrap font-mono text-xs font-bold uppercase text-[var(--color-background)]">
-          &nbsp;&nbsp;ELECTRÓNICA&nbsp;&nbsp;//&nbsp;&nbsp;MUEBLES&nbsp;&nbsp;//&nbsp;&nbsp;ACCESORIOS&nbsp;&nbsp;//&nbsp;&nbsp;CALZADO&nbsp;&nbsp;//&nbsp;&nbsp;VISOR 3D INTERACTIVO&nbsp;&nbsp;//&nbsp;&nbsp;ROTA · CAMBIA COLOR · DESCUBRE&nbsp;&nbsp;//&nbsp;&nbsp;ELECTRÓNICA&nbsp;&nbsp;//&nbsp;&nbsp;MUEBLES&nbsp;&nbsp;//&nbsp;&nbsp;ACCESORIOS&nbsp;&nbsp;//&nbsp;&nbsp;CALZADO&nbsp;&nbsp;//&nbsp;&nbsp;VISOR 3D&nbsp;&nbsp;//&nbsp;&nbsp;
+      <div
+        className="overflow-hidden border-b border-[var(--color-iron-veil)] py-3"
+        style={{ background: "linear-gradient(rgb(36,71,73) 0%, rgb(24,46,47) 100%)" }}
+      >
+        <p className="animate-[ticker_20s_linear_infinite] whitespace-nowrap font-mono text-[11px] uppercase tracking-widest text-[var(--color-mint-signal)]">
+          &nbsp;&nbsp;ELECTRÓNICA&nbsp;&nbsp;·&nbsp;&nbsp;MUEBLES&nbsp;&nbsp;·&nbsp;&nbsp;ACCESORIOS&nbsp;&nbsp;·&nbsp;&nbsp;CALZADO&nbsp;&nbsp;·&nbsp;&nbsp;VISOR 3D INTERACTIVO&nbsp;&nbsp;·&nbsp;&nbsp;ROTA · CAMBIA COLOR · DESCUBRE&nbsp;&nbsp;·&nbsp;&nbsp;ELECTRÓNICA&nbsp;&nbsp;·&nbsp;&nbsp;MUEBLES&nbsp;&nbsp;·&nbsp;&nbsp;ACCESORIOS&nbsp;&nbsp;·&nbsp;&nbsp;CALZADO&nbsp;&nbsp;·&nbsp;&nbsp;VISOR 3D&nbsp;&nbsp;·&nbsp;&nbsp;
         </p>
       </div>
 
       {/* ── PRODUCT SECTION ── */}
-      <section id="productos" className="mx-auto max-w-7xl px-6 py-14 sm:px-8 lg:px-12">
-        <div className="mb-8 flex items-end justify-between border-b-2 border-[var(--color-border)] pb-4">
+      <section id="productos" className="mx-auto max-w-7xl px-6 py-16 sm:px-8 lg:px-12">
+        <div className="mb-10 flex items-end justify-between border-b border-[var(--color-iron-veil)] pb-6">
           <div className="flex items-baseline gap-4">
-            <h2 className="font-black text-3xl uppercase tracking-tight">
+            <h2 className="font-light text-4xl uppercase tracking-[0.04em] text-white">
               Productos
             </h2>
-            <span className="font-mono text-xs text-[var(--color-muted)]">
+            <span className="font-mono text-xs text-[var(--color-mint-signal)]">
               [{products.length}]
             </span>
           </div>

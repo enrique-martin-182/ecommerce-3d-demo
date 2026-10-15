@@ -43,16 +43,14 @@ interface PaymentFormProps {
   onBack: () => void;
 }
 
-const labelClass = "mb-1 block font-mono text-[10px] font-bold uppercase tracking-wider text-[var(--color-muted)]";
+const labelClass = "mb-1.5 block font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-ash-label)]";
 const inputClass =
-  "w-full border-2 border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2.5 font-mono text-sm placeholder:text-[var(--color-muted)] focus:outline-none focus:border-[var(--color-accent)] transition-colors";
+  "w-full rounded-lg border border-[var(--color-iron-veil)] bg-[var(--color-deep-canopy)] px-3 py-2.5 text-sm text-white placeholder:text-[var(--color-ash-label)] focus:border-[var(--color-tide-pool)] focus:outline-none transition-colors";
 
 function FieldError({ message }: { message?: string }) {
   if (!message) return null;
   return (
-    <p className="mt-1 font-mono text-[10px] font-bold uppercase text-[var(--color-error)]">
-      ✕ {message}
-    </p>
+    <p className="mt-1 text-[11px] text-[var(--color-error)]">✕ {message}</p>
   );
 }
 
@@ -80,13 +78,13 @@ export function PaymentForm({ onSubmit, onBack }: PaymentFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
       <div>
         <label className={labelClass}>Titular de la tarjeta</label>
         <input
           {...register("cardName")}
           className={inputClass}
-          placeholder="JUAN GARCIA"
+          placeholder="Juan García"
         />
         <FieldError message={errors.cardName?.message} />
       </div>
@@ -104,8 +102,8 @@ export function PaymentForm({ onSubmit, onBack }: PaymentFormProps) {
         <FieldError message={errors.cardNumber?.message} />
       </div>
 
-      <div className="grid grid-cols-2 gap-0">
-        <div className="border-r-2 border-[var(--color-border)] pr-4">
+      <div className="grid grid-cols-2 gap-4">
+        <div>
           <label className={labelClass}>Caducidad</label>
           <input
             {...register("expiry")}
@@ -117,7 +115,7 @@ export function PaymentForm({ onSubmit, onBack }: PaymentFormProps) {
           />
           <FieldError message={errors.expiry?.message} />
         </div>
-        <div className="pl-4">
+        <div>
           <label className={labelClass}>CVV</label>
           <input
             {...register("cvv")}
@@ -131,25 +129,26 @@ export function PaymentForm({ onSubmit, onBack }: PaymentFormProps) {
         </div>
       </div>
 
-      <div className="border-2 border-[var(--color-border)] bg-[var(--color-surface)] p-3">
-        <p className="font-mono text-[10px] font-bold uppercase text-[var(--color-muted)]">
-          DEMO — sin pagos reales · Prueba con: 4111111111111111
+      <div className="rounded-lg border border-[var(--color-moss-border)] bg-[var(--color-deep-canopy)] p-3.5">
+        <p className="text-[11px] text-[var(--color-tide-pool)]">
+          Demo — sin pagos reales · Prueba con:{" "}
+          <span className="font-mono text-[var(--color-mint-signal)]">4111111111111111</span>
         </p>
       </div>
 
-      <div className="flex gap-0">
+      <div className="flex gap-3">
         <button
           type="button"
           onClick={onBack}
-          className="flex-1 border-2 border-[var(--color-border)] border-r-0 py-3.5 font-black text-xs uppercase transition-colors hover:bg-[var(--color-foreground)] hover:text-[var(--color-background)]"
+          className="flex-1 rounded-full border border-white/30 py-3.5 text-xs font-medium uppercase tracking-wider text-white transition-all hover:border-white/60 hover:bg-white/5"
         >
-          ← VOLVER
+          ← Volver
         </button>
         <button
           type="submit"
-          className="flex-[2] border-2 border-[var(--color-border)] bg-[var(--color-foreground)] py-3.5 font-black text-xs uppercase text-[var(--color-background)] transition-all hover:bg-[var(--color-accent)] hover:border-[var(--color-accent)]"
+          className="flex-[2] rounded-full bg-white py-3.5 text-xs font-medium uppercase tracking-widest text-black transition-all hover:bg-[var(--color-ghost-white)]"
         >
-          CONFIRMAR PEDIDO →
+          Confirmar pedido →
         </button>
       </div>
     </form>

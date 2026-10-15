@@ -18,11 +18,11 @@ interface FilterBarProps {
 }
 
 const CATEGORIES: { value: Category; label: string }[] = [
-  { value: "all", label: "TODO" },
-  { value: "electronics", label: "ELECTRÓNICA" },
-  { value: "furniture", label: "MUEBLES" },
-  { value: "accessories", label: "ACCESORIOS" },
-  { value: "footwear", label: "CALZADO" },
+  { value: "all", label: "Todo" },
+  { value: "electronics", label: "Electrónica" },
+  { value: "furniture", label: "Muebles" },
+  { value: "accessories", label: "Accesorios" },
+  { value: "footwear", label: "Calzado" },
 ];
 
 export function FilterBar({
@@ -47,23 +47,22 @@ export function FilterBar({
   );
 
   return (
-    <div className="flex flex-col gap-4 border-2 border-[var(--color-border)] bg-[var(--color-surface)] p-5">
-      {/* Category row */}
+    <div className="flex flex-col gap-4 rounded-xl border border-[var(--color-iron-veil)] bg-[var(--color-forest-floor)] p-5">
+      {/* Category pills */}
       <div className="overflow-x-auto">
-        <div className="flex min-w-max gap-0">
-          {CATEGORIES.map((cat, i) => (
+        <div className="flex min-w-max gap-2">
+          {CATEGORIES.map((cat) => (
             <button
               key={cat.value}
               onClick={() => {
                 setActiveCategory(cat.value);
                 onCategoryChange(cat.value);
               }}
-              className={`flex-shrink-0 border-2 border-r-0 px-5 py-2.5 font-mono text-[11px] font-bold uppercase transition-all last:border-r-2 ${
+              className={`rounded-full px-4 py-2 text-xs font-medium uppercase tracking-widest transition-all ${
                 activeCategory === cat.value
-                  ? "bg-[var(--color-foreground)] text-[var(--color-background)] border-[var(--color-border)]"
-                  : "border-[var(--color-border)] hover:bg-[var(--color-foreground)] hover:text-[var(--color-background)]"
+                  ? "bg-white text-black"
+                  : "border border-white/20 text-[var(--color-tide-pool)] hover:border-white/40 hover:text-white"
               }`}
-              style={{ marginLeft: i === 0 ? 0 : -2 }}
             >
               {cat.label}
             </button>
@@ -72,20 +71,20 @@ export function FilterBar({
       </div>
 
       {/* Controls */}
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="flex flex-wrap items-center gap-3">
         {/* Search */}
         <input
           type="search"
-          placeholder="BUSCAR..."
+          placeholder="Buscar..."
           value={searchValue}
           onChange={handleSearch}
           aria-label="Buscar productos"
-          className="h-9 min-w-[140px] flex-1 border-2 border-[var(--color-border)] bg-[var(--color-card)] px-3 font-mono text-xs uppercase placeholder:text-[var(--color-muted)] focus:outline-none focus:ring-0 focus:border-[var(--color-accent)]"
+          className="h-9 min-w-[140px] flex-1 rounded-lg border border-[var(--color-iron-veil)] bg-[var(--color-deep-canopy)] px-3 text-sm text-white placeholder:text-[var(--color-ash-label)] focus:border-[var(--color-tide-pool)] focus:outline-none"
         />
 
-        {/* Price */}
-        <label className="flex h-9 flex-shrink-0 items-center gap-2 border-2 border-[var(--color-border)] bg-[var(--color-card)] px-3 font-mono text-[11px] font-bold uppercase">
-          <span className="whitespace-nowrap">MAX {maxPrice} €</span>
+        {/* Price range */}
+        <label className="flex h-9 flex-shrink-0 items-center gap-2 rounded-lg border border-[var(--color-iron-veil)] bg-[var(--color-deep-canopy)] px-3 text-xs text-[var(--color-ash-label)]">
+          <span className="whitespace-nowrap">Máx {maxPrice} €</span>
           <input
             type="range"
             min={100}
@@ -93,7 +92,7 @@ export function FilterBar({
             step={50}
             defaultValue={1000}
             onChange={(e) => onPriceChange(Number(e.target.value))}
-            className="w-20 accent-[var(--color-accent)] cursor-pointer"
+            className="w-20 accent-[var(--color-mint-signal)] cursor-pointer"
             aria-label="Precio máximo"
           />
         </label>
@@ -102,11 +101,11 @@ export function FilterBar({
         <select
           onChange={(e) => onSortChange(e.target.value as SortOption)}
           aria-label="Ordenar por"
-          className="h-9 flex-shrink-0 border-2 border-[var(--color-border)] bg-[var(--color-card)] px-3 font-mono text-[11px] font-bold uppercase focus:outline-none focus:border-[var(--color-accent)] cursor-pointer"
+          className="h-9 flex-shrink-0 rounded-lg border border-[var(--color-iron-veil)] bg-[var(--color-deep-canopy)] px-3 text-xs text-[var(--color-ash-label)] focus:border-[var(--color-tide-pool)] focus:outline-none cursor-pointer"
         >
-          <option value="price-asc">PRECIO ↑</option>
-          <option value="price-desc">PRECIO ↓</option>
-          <option value="name-asc">NOMBRE A–Z</option>
+          <option value="price-asc">Precio ↑</option>
+          <option value="price-desc">Precio ↓</option>
+          <option value="name-asc">Nombre A–Z</option>
         </select>
       </div>
     </div>

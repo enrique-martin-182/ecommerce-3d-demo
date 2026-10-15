@@ -22,13 +22,13 @@ export default function CheckoutPage() {
   if (items.length === 0 && step !== "success") {
     return (
       <main className="mx-auto max-w-lg px-4 py-24 text-center">
-        <p className="font-black text-5xl uppercase text-[var(--color-muted)]">VACÍO</p>
-        <p className="mt-4 font-mono text-sm text-[var(--color-muted-fg)]">
+        <p className="font-light text-5xl uppercase tracking-wide text-[var(--color-ash-label)]">Vacío</p>
+        <p className="mt-4 text-sm text-[var(--color-tide-pool)]">
           Tu carrito no tiene artículos.
         </p>
         <Link
           href="/"
-          className="mt-8 inline-flex h-11 items-center gap-2 border-2 border-[var(--color-border)] px-6 font-black text-sm uppercase transition-colors hover:bg-[var(--color-foreground)] hover:text-[var(--color-background)]"
+          className="mt-8 inline-flex h-11 items-center gap-2 rounded-full border border-white/30 px-6 text-sm font-medium uppercase tracking-widest text-white transition-all hover:border-white/60 hover:bg-white/5"
         >
           ← Volver a la tienda
         </Link>
@@ -39,18 +39,18 @@ export default function CheckoutPage() {
   if (step === "success") {
     return (
       <main className="mx-auto max-w-lg px-4 py-24 text-center">
-        <div className="border-2 border-[var(--color-border)] bg-[var(--color-surface)] p-12">
-          <p className="font-black text-6xl text-[var(--color-success)]">✓</p>
-          <h1 className="mt-4 font-black text-3xl uppercase">¡PEDIDO OK!</h1>
-          <p className="mt-2 font-mono text-sm text-[var(--color-muted-fg)]">
+        <div className="rounded-xl border border-[var(--color-iron-veil)] bg-[var(--color-forest-floor)] p-12">
+          <p className="font-light text-6xl text-[var(--color-mint-signal)]">✓</p>
+          <h1 className="mt-4 font-light text-3xl uppercase tracking-wide text-white">¡Pedido confirmado!</h1>
+          <p className="mt-2 font-mono text-sm text-[var(--color-ash-label)]">
             Pedido #{orderNumber}
           </p>
-          <p className="mt-4 font-mono text-xs text-[var(--color-muted)]">
-            DEMO — no se procesó ningún pago real.
+          <p className="mt-4 text-xs text-[var(--color-tide-pool)] uppercase tracking-widest">
+            Demo — no se procesó ningún pago real.
           </p>
           <Link
             href="/"
-            className="mt-8 inline-flex h-11 items-center gap-2 border-2 border-[var(--color-border)] bg-[var(--color-foreground)] px-6 font-black text-sm uppercase text-[var(--color-background)] transition-colors hover:bg-[var(--color-accent)] hover:border-[var(--color-accent)]"
+            className="mt-8 inline-flex h-11 items-center gap-2 rounded-full bg-white px-6 text-sm font-medium uppercase tracking-widest text-black transition-all hover:bg-[var(--color-ghost-white)]"
           >
             ← Volver a la tienda
           </Link>
@@ -70,24 +70,24 @@ export default function CheckoutPage() {
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-10">
-      {/* Header bar */}
-      <div className="mb-6 flex items-center justify-between border-b-2 border-[var(--color-border)] pb-4">
-        <h1 className="font-black text-2xl uppercase tracking-tight">CHECKOUT</h1>
+      {/* Header */}
+      <div className="mb-8 flex items-center justify-between border-b border-[var(--color-iron-veil)] pb-5">
+        <h1 className="font-light text-3xl uppercase tracking-[0.04em] text-white">Checkout</h1>
         <Link
           href="/"
-          className="font-mono text-xs font-bold uppercase text-[var(--color-muted)] transition-colors hover:text-[var(--color-accent)]"
+          className="text-xs font-medium uppercase tracking-wider text-[var(--color-ash-label)] transition-colors hover:text-[var(--color-mint-signal)]"
         >
           ← Seguir comprando
         </Link>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-[1fr_260px]">
+      <div className="grid gap-5 md:grid-cols-[1fr_280px]">
         {/* Left: steps */}
-        <div className="space-y-4">
-          <div className="border-2 border-[var(--color-border)] bg-[var(--color-surface)] p-1">
+        <div className="space-y-5">
+          <div className="rounded-xl border border-[var(--color-iron-veil)] bg-[var(--color-forest-floor)] p-1">
             <StepIndicator currentStep={step as 1 | 2} />
           </div>
-          <div className="border-2 border-[var(--color-border)] bg-[var(--color-card)] p-6">
+          <div className="rounded-xl border border-[var(--color-iron-veil)] bg-[var(--color-forest-floor)] p-6">
             {step === 1 && <ShippingForm onSubmit={handleShipping} />}
             {step === 2 && (
               <PaymentForm onSubmit={handlePayment} onBack={() => setStep(1)} />
@@ -96,21 +96,21 @@ export default function CheckoutPage() {
         </div>
 
         {/* Right: order summary */}
-        <div className="border-2 border-[var(--color-border)] bg-[var(--color-card)] p-5 h-fit">
-          <p className="mb-4 border-b-2 border-[var(--color-border)] pb-2 font-mono text-[10px] font-bold uppercase tracking-widest text-[var(--color-muted)]">
-            RESUMEN DEL PEDIDO
+        <div className="rounded-xl border border-[var(--color-iron-veil)] bg-[var(--color-forest-floor)] p-5 h-fit">
+          <p className="mb-4 border-b border-[var(--color-iron-veil)] pb-3 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-ash-label)]">
+            Resumen del pedido
           </p>
-          <div className="space-y-2 border-b-2 border-[var(--color-border)] pb-4">
+          <div className="space-y-3 border-b border-[var(--color-iron-veil)] pb-4">
             {items.map((item) => {
               const p = getProduct(item.productId);
               const unitPrice = p ? getProductPrice(p, item.variantId) : 0;
               return (
                 <div key={`${item.productId}-${item.variantId}`} className="flex items-start justify-between gap-2">
-                  <span className="font-mono text-xs text-[var(--color-muted-fg)] line-clamp-2 flex-1">
+                  <span className="text-xs text-[var(--color-tide-pool)] line-clamp-2 flex-1">
                     {p?.name ?? item.productId}
-                    <span className="text-[var(--color-muted)]"> ×{item.quantity}</span>
+                    <span className="text-[var(--color-ash-label)]"> ×{item.quantity}</span>
                   </span>
-                  <span className="font-black text-sm tabular-nums">
+                  <span className="text-sm font-medium tabular-nums text-white">
                     {(unitPrice * item.quantity).toFixed(0)} €
                   </span>
                 </div>
@@ -118,11 +118,11 @@ export default function CheckoutPage() {
             })}
           </div>
           <div className="mt-4 flex items-baseline justify-between">
-            <span className="font-mono text-xs font-bold uppercase text-[var(--color-muted)]">TOTAL</span>
-            <span className="font-black text-2xl tabular-nums">{total().toFixed(0)} €</span>
+            <span className="text-xs uppercase tracking-wider text-[var(--color-ash-label)]">Total</span>
+            <span className="font-light text-3xl tabular-nums text-[var(--color-mint-signal)]">{total().toFixed(0)} €</span>
           </div>
-          <p className="mt-3 font-mono text-[10px] text-center text-[var(--color-muted)] uppercase">
-            DEMO — pago simulado
+          <p className="mt-3 text-center text-[11px] text-[var(--color-ash-label)] uppercase tracking-widest">
+            Demo — pago simulado
           </p>
         </div>
       </div>

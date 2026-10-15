@@ -4,32 +4,31 @@ interface StepIndicatorProps {
 
 export function StepIndicator({ currentStep }: StepIndicatorProps) {
   const steps = [
-    { number: 1, label: "ENVÍO" },
-    { number: 2, label: "PAGO" },
+    { number: 1, label: "Envío" },
+    { number: 2, label: "Pago" },
   ];
 
   return (
-    <div className="flex items-center">
-      {steps.map((step, i) => (
-        <div key={step.number} className="flex items-center flex-1">
-          <div
-            className={`flex h-10 flex-1 items-center justify-center gap-3 border-2 border-[var(--color-border)] font-mono text-xs font-bold uppercase transition-colors ${
+    <div className="flex items-center gap-1 p-1">
+      {steps.map((step) => (
+        <div
+          key={step.number}
+          className={`flex h-9 flex-1 items-center justify-center gap-2.5 rounded-lg text-xs font-medium uppercase tracking-wider transition-colors ${
+            currentStep >= step.number
+              ? "bg-white text-black"
+              : "text-[var(--color-ash-label)]"
+          }`}
+        >
+          <span
+            className={`flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-bold ${
               currentStep >= step.number
-                ? "bg-[var(--color-foreground)] text-[var(--color-background)]"
-                : "bg-[var(--color-surface)] text-[var(--color-muted)]"
-            } ${i > 0 ? "border-l-0" : ""}`}
+                ? "bg-[var(--color-mint-signal)] text-black"
+                : "border border-[var(--color-iron-veil)] text-[var(--color-ash-label)]"
+            }`}
           >
-            <span
-              className={`flex h-5 w-5 items-center justify-center border font-black text-[10px] ${
-                currentStep >= step.number
-                  ? "border-[var(--color-background)]/40 text-[var(--color-background)]"
-                  : "border-[var(--color-muted)] text-[var(--color-muted)]"
-              }`}
-            >
-              {step.number}
-            </span>
-            {step.label}
-          </div>
+            {step.number}
+          </span>
+          {step.label}
         </div>
       ))}
     </div>

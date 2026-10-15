@@ -21,15 +21,13 @@ interface ShippingFormProps {
 function FieldError({ message }: { message?: string }) {
   if (!message) return null;
   return (
-    <p className="mt-1 font-mono text-[10px] font-bold uppercase text-[var(--color-error)]">
-      ✕ {message}
-    </p>
+    <p className="mt-1 text-[11px] text-[var(--color-error)]">✕ {message}</p>
   );
 }
 
-const labelClass = "mb-1 block font-mono text-[10px] font-bold uppercase tracking-wider text-[var(--color-muted)]";
+const labelClass = "mb-1.5 block font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-ash-label)]";
 const inputClass =
-  "w-full border-2 border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2.5 font-mono text-sm placeholder:text-[var(--color-muted)] focus:outline-none focus:border-[var(--color-accent)] transition-colors";
+  "w-full rounded-lg border border-[var(--color-iron-veil)] bg-[var(--color-deep-canopy)] px-3 py-2.5 text-sm text-white placeholder:text-[var(--color-ash-label)] focus:border-[var(--color-tide-pool)] focus:outline-none transition-colors";
 
 export function ShippingForm({ onSubmit }: ShippingFormProps) {
   const {
@@ -41,14 +39,14 @@ export function ShippingForm({ onSubmit }: ShippingFormProps) {
   });
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      <div className="grid grid-cols-2 gap-0">
-        <div className="border-r-2 border-[var(--color-border)] pr-4">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+      <div className="grid grid-cols-2 gap-4">
+        <div>
           <label className={labelClass}>Nombre</label>
           <input {...register("firstName")} className={inputClass} placeholder="Juan" />
           <FieldError message={errors.firstName?.message} />
         </div>
-        <div className="pl-4">
+        <div>
           <label className={labelClass}>Apellidos</label>
           <input {...register("lastName")} className={inputClass} placeholder="García" />
           <FieldError message={errors.lastName?.message} />
@@ -67,13 +65,13 @@ export function ShippingForm({ onSubmit }: ShippingFormProps) {
         <FieldError message={errors.address?.message} />
       </div>
 
-      <div className="grid grid-cols-2 gap-0">
-        <div className="border-r-2 border-[var(--color-border)] pr-4">
+      <div className="grid grid-cols-2 gap-4">
+        <div>
           <label className={labelClass}>Ciudad</label>
           <input {...register("city")} className={inputClass} placeholder="Madrid" />
           <FieldError message={errors.city?.message} />
         </div>
-        <div className="pl-4">
+        <div>
           <label className={labelClass}>Código postal</label>
           <input {...register("postalCode")} className={inputClass} placeholder="28001" />
           <FieldError message={errors.postalCode?.message} />
@@ -88,9 +86,9 @@ export function ShippingForm({ onSubmit }: ShippingFormProps) {
 
       <button
         type="submit"
-        className="w-full border-2 border-[var(--color-border)] bg-[var(--color-foreground)] py-3.5 font-black text-sm uppercase text-[var(--color-background)] transition-all hover:bg-[var(--color-accent)] hover:border-[var(--color-accent)]"
+        className="w-full rounded-full bg-white py-3.5 text-sm font-medium uppercase tracking-widest text-black transition-all hover:bg-[var(--color-ghost-white)]"
       >
-        CONTINUAR AL PAGO →
+        Continuar al pago →
       </button>
     </form>
   );
