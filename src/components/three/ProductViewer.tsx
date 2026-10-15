@@ -59,7 +59,9 @@ function Model({ glbPath, scale, position, variantColor }: ModelProps) {
           if (mat?.color) mat.color.copy(currentColor.current);
         }
       });
-      if (currentColor.current.distanceTo(targetColor.current) < 0.001) {
+      const c = currentColor.current, t = targetColor.current;
+      const dist = Math.sqrt((c.r-t.r)**2 + (c.g-t.g)**2 + (c.b-t.b)**2);
+      if (dist < 0.001) {
         clearInterval(interval);
       }
     }, 16);
