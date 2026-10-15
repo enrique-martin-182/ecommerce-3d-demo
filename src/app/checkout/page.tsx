@@ -5,6 +5,7 @@ import { StepIndicator } from "@/components/checkout/StepIndicator";
 import { ShippingForm } from "@/components/checkout/ShippingForm";
 import { PaymentForm } from "@/components/checkout/PaymentForm";
 import type { ShippingData, PaymentData } from "@/lib/types";
+import { getProduct, getProductPrice } from "@/lib/products";
 import Link from "next/link";
 
 type Step = 1 | 2 | "success";
@@ -107,16 +108,20 @@ export default function CheckoutPage() {
             Resumen
           </p>
           <div className="space-y-2 border-b border-[var(--color-border)] pb-4">
-            {items.map((item) => (
-              <div key={`${item.productId}-${item.variantId}`} className="flex items-center justify-between gap-2 text-xs">
-                <span className="text-[var(--color-muted-fg)] line-clamp-1 flex-1">
-                  {item.productName} × {item.quantity}
-                </span>
-                <span className="tabular-nums font-medium">
-                  {(item.price * item.quantity).toFixed(0)} €
-                </span>
-              </div>
-            ))}
+            {items.map((item) => {
+              const p = getProduct(item.productId);
+              const unitPrice = p ? getProductPrice(p, item.variantId) : 0;
+              return (
+                <div key={`${item.productId}-${item.variantId}`} className="flex items-center justify-between gap-2 text-xs">
+                  <span className="text-[var(--color-muted-fg)] line-clamp-1 flex-1">
+                    {p?.name ?? item.productId} × {item.quantity}
+                  </span>
+                  <span className="tabular-nums font-medium">
+                    {(unitPrice * item.quantity).toFixed(0)} €
+                  </span>
+                </div>
+              );
+            })}
           </div>
           <div className="mt-4 flex items-center justify-between">
             <span className="text-sm text-[var(--color-muted-fg)]">Total</span>
