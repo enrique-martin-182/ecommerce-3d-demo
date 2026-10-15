@@ -16,45 +16,46 @@ export function CartItem({ item }: CartItemProps) {
   const price = getProductPrice(product, item.variantId);
 
   return (
-    <div className="flex items-start gap-3 py-4">
+    <div className="flex items-start gap-3 px-5 py-4">
+      {/* Color swatch */}
       <div
         className="h-10 w-10 shrink-0 rounded-lg border border-[var(--color-border)]"
-        style={{ backgroundColor: variant?.color ?? "#ccc" }}
+        style={{ backgroundColor: variant?.color ?? "#888" }}
         aria-hidden="true"
       />
-      <div className="flex flex-1 flex-col gap-1 min-w-0">
-        <p className="text-sm font-medium truncate">{product.name}</p>
-        <p className="text-xs text-[var(--color-muted)]">{variant?.name}</p>
-        <div className="flex items-center gap-2 mt-1">
+
+      <div className="flex flex-1 flex-col gap-0.5 min-w-0">
+        <p className="text-sm font-medium leading-snug truncate">{product.name}</p>
+        <p className="text-xs text-[var(--color-muted-fg)]">{variant?.name}</p>
+
+        {/* Qty stepper */}
+        <div className="mt-2 flex items-center gap-1.5">
           <button
-            onClick={() =>
-              updateQuantity(item.productId, item.variantId, item.quantity - 1)
-            }
+            onClick={() => updateQuantity(item.productId, item.variantId, item.quantity - 1)}
             aria-label="Reducir cantidad"
-            className="flex h-6 w-6 items-center justify-center rounded border border-[var(--color-border)] text-sm hover:bg-[var(--color-card)]"
+            className="flex h-6 w-6 items-center justify-center rounded border border-[var(--color-border)] text-sm leading-none transition-colors hover:bg-[var(--color-surface-raised)] hover:border-[var(--color-muted)]"
           >
             −
           </button>
-          <span className="text-sm tabular-nums">{item.quantity}</span>
+          <span className="w-5 text-center text-xs tabular-nums">{item.quantity}</span>
           <button
-            onClick={() =>
-              updateQuantity(item.productId, item.variantId, item.quantity + 1)
-            }
+            onClick={() => updateQuantity(item.productId, item.variantId, item.quantity + 1)}
             aria-label="Aumentar cantidad"
-            className="flex h-6 w-6 items-center justify-center rounded border border-[var(--color-border)] text-sm hover:bg-[var(--color-card)]"
+            className="flex h-6 w-6 items-center justify-center rounded border border-[var(--color-border)] text-sm leading-none transition-colors hover:bg-[var(--color-surface-raised)] hover:border-[var(--color-muted)]"
           >
             +
           </button>
         </div>
       </div>
-      <div className="flex flex-col items-end gap-2 shrink-0">
-        <span className="text-sm font-semibold">
+
+      <div className="flex shrink-0 flex-col items-end gap-2">
+        <span className="text-sm font-semibold tabular-nums">
           {(price * item.quantity).toFixed(0)} €
         </span>
         <button
           onClick={() => removeItem(item.productId, item.variantId)}
           aria-label={`Eliminar ${product.name}`}
-          className="text-xs text-[var(--color-muted)] hover:text-red-500 transition-colors"
+          className="text-[11px] text-[var(--color-muted)] transition-colors hover:text-[var(--color-error)]"
         >
           Eliminar
         </button>
